@@ -1,0 +1,1364 @@
+/* ==========================================================================
+   GENAVIV REFRESHED — a modern dark theme for RED
+   Single-file successor to gold-main.css (gold + geometry + dark + red)
+   Genaviv theme by geekmaster1, edited by exa · Refreshed edition by Claude Fable 5
+   ========================================================================== */
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* surfaces — neutral charcoal with a whisper of warmth */
+  --bg: #181817;
+  --bg-deep: #101010;
+  --surface: #1f1f1e;
+  --surface-2: #262625;
+  --surface-3: #2f2f2e;
+  --overlay: rgba(16, 16, 16, 0.72);
+
+  /* text */
+  --text: #c7c5c0;
+  --text-bright: #f2f1ee;
+  --text-dim: #8b8985;
+  --text-faint: #5d5b57;
+
+  /* accents: soft sand for links, Redacted red for emphasis */
+  --gold: #c9b58e;
+  --gold-bright: #eadfc5;
+  --clay: #d9484e;
+  --clay-bright: #f2686d;
+
+  /* semantics */
+  --good: #7fb885;
+  --warn: #e0b45c;
+  --bad: #d16a5a;
+  --info: #7fa8c9;
+
+  /* chrome */
+  --border: #2d2d2c;
+  --border-strong: #41413f;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgba(0,0,0,.25), 0 8px 24px -12px rgba(0,0,0,.5);
+  --shadow-pop: 0 4px 12px rgba(0,0,0,.35), 0 16px 40px -16px rgba(0,0,0,.6);
+
+  --font-body: 'DM Sans', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* prose (forum posts, comments) keeps Outfit's rounder, airier read */
+  --font-prose: 'Outfit', 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  /* display is reserved for card heads and edition bands */
+  --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-logo: 'Lora', Georgia, serif;
+  --font-mono: 'Roboto Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease: cubic-bezier(.25,.5,.25,1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { padding: 0; margin: 0; }
+
+html { scrollbar-color: var(--surface-3) var(--bg-deep); }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: rgba(217,72,78,.32); color: var(--text-bright); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 5px; border: 2px solid var(--bg-deep); }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; color: var(--text-bright); }
+body h1, body h2, body h3, body h4 { padding: 5px 0; }
+h2 { font-size: 1.05rem; }
+h2, h3 { text-align: center; font-weight: 600; letter-spacing: .01em; }
+/* page titles: body face, sized up */
+.thin > h2, .header > h2, #content > h2, .thin > h3 {
+  font-family: var(--font-body);
+  font-size: 1.3rem; font-weight: 600; letter-spacing: -.01em;
+}
+.thin h2, .thin h3, #content h2 { color: var(--text-bright); }
+
+a, tr.unreadpm a {
+  text-decoration: none;
+  color: var(--gold);
+  transition: color .2s var(--ease);
+}
+a:hover, a.simple-tabs__link:hover, #wrapper .alert-bars a:hover { color: var(--gold-bright); }
+
+#wrapper pre, #wrapper blockquote { color: var(--text); }
+
+a img { transition: opacity .25s var(--ease), transform .25s var(--ease); transform: translateZ(0); }
+a:hover img { opacity: .8; }
+
+/* --------------------------------------------------------------------------
+   3. Layout shell
+   -------------------------------------------------------------------------- */
+#content { margin: 0 auto; padding: 0 12px; }
+@media (min-width: 544px)  { #content { max-width: 600px; } }
+@media (min-width: 768px)  { #content { max-width: 740px; } }
+@media (min-width: 992px)  { #content { max-width: 94vw; } }
+@media (min-width: 1200px) { #content { max-width: min(1300px, 92vw); } }
+
+.thin > div { margin-top: 8px; }
+#content > .thin > h2 { margin-top: 8px; }
+#index .thin > div, #series > #content, #showslist #content, #nfo #content,
+#kb #content, #store #content { margin-top: 12px; }
+
+.sidebar { width: 25%; float: right; padding: 0 0 0 8px; }
+.main_column, .main-column { width: 75%; float: left; }
+.sidebar > div, .sidebar ul, .sidebar table, div#quickreplytext { margin-bottom: 8px; }
+.sidebar select, #inbox form.send_form #quickpost { margin-bottom: 8px; }
+.sidebar.settings_sidebar li, .sidebar .navigation_list li { display: block; }
+
+div, table, tr, td { border-collapse: collapse; }
+
+#footer, header { clear: both; float: none; }
+#footer { text-align: center; padding: 28px 0 40px; color: var(--text-faint); font-size: .78rem; }
+#footer a { color: var(--text-dim); }
+#footer a:hover { color: var(--gold); }
+div#footer > p:first-child::after { content: " | Genaviv Refreshed theme — geekmaster1 · exa · Claude Fable 5"; }
+
+.hidden, div#quickreplytext br { display: none; }
+.hidden { position: absolute; left: -10000px; }
+.center, #inbox form#messageform[name="reply"] div.box.pad,
+#inbox .thin form#messageform[name="message"] div.box.pad { text-align: center; }
+
+/* --------------------------------------------------------------------------
+   4. Top menu
+   -------------------------------------------------------------------------- */
+/* floating island nav */
+#menu, .main-menu {
+  position: fixed;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 1500;
+  width: max-content; max-width: 96vw;
+  height: auto; min-height: 0;
+  text-align: center;
+  padding: 5px 8px;
+  background: rgba(16, 16, 16, 0.66);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.55);
+  transition: background .4s var(--ease);
+}
+#menu:hover, .main-menu:hover { background: rgba(12, 12, 12, 0.9); }
+#menu::before, #menu::after, .main-menu::before, .main-menu::after,
+div#quickreplytext::after, #inbox form.send_form #quickpost::after { content: " "; display: table; }
+
+#menu ul > li, .main-menu ul > li { padding: 0; }
+#menu ul > li > a, .main-menu ul > li > a {
+  display: block;
+  line-height: 20px; font-size: 13px; font-weight: 500;
+  letter-spacing: .01em; color: var(--text);
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+#menu ul > li > a:hover, .main-menu ul > li > a:hover {
+  color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.07);
+}
+#header > #menu ul > li.active > a {
+  color: var(--clay-bright);
+  background: color-mix(in srgb, var(--clay) 16%, transparent);
+}
+#header li { display: inline-block; }
+ul.navigation li { display: inline-block !important; }
+
+/* --------------------------------------------------------------------------
+   5. Header, userinfo, search
+   -------------------------------------------------------------------------- */
+#header {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 100%);
+  background-size: cover; background-repeat: no-repeat; background-position: center center;
+  padding-top: 70px; text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+header { background: initial; }
+
+/* CSS wordmark — spaced uppercase, no image dependency */
+div#logo { width: 420px; height: 70px; margin: 0 auto; }
+div#logo a { display: block; width: 420px; height: 70px; margin: 0 auto; }
+#header #logo { margin-top: 10px; margin-bottom: 10px; }
+#logo a::before, #logo a::after {
+  font-family: var(--font-body);
+  font-size: 1.95rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  line-height: 70px;
+  transition: color .25s var(--ease);
+}
+#logo a::before { content: "redacted"; font-weight: 300; color: var(--text-bright); margin-left: .32em; }
+#logo a::after { content: ".sh"; font-weight: 600; color: var(--clay); }
+#logo a:hover::before { color: var(--gold-bright); }
+#logo a:hover::after { color: var(--clay-bright); }
+
+#header a { color: var(--text-bright); }
+#header a:hover, #header a:focus { color: var(--gold-bright); }
+#header a.username { color: var(--clay-bright); font-weight: 600; }
+#header a.username:hover, #header a.username:focus { color: var(--text-bright); }
+#header .alertbar a { color: var(--gold); }
+#header a.new-subscriptions { color: var(--clay); }
+#header a.new-subscriptions:hover { color: var(--clay-bright); }
+a.new-subscriptions { font-weight: normal; }
+#header b, #header strong { font-weight: 500; }
+
+div#userinfo { text-align: center; }
+ul#userinfo_major, ul#userinfo_stats {
+  display: inline !important; vertical-align: middle; text-align: center;
+}
+ul#userinfo_major > li, ul#userinfo_stats > li { padding: 0 7px; }
+/* stats read as label:dim / value:bright */
+ul#userinfo_stats > li { color: var(--text-faint); font-size: .82rem; }
+ul#userinfo_stats > li a { color: var(--text-dim); }
+ul#userinfo_stats > li a:hover { color: var(--text-bright); }
+ul#userinfo_stats .stat { color: var(--text-bright); }
+ul#userinfo_major > li { font-size: .86rem; }
+
+/* account chip pinned top-right, out of the way of the search row */
+ul#userinfo_username {
+  position: fixed; top: 10px; right: 16px; z-index: 1500;
+  display: inline-flex !important; align-items: center;
+  margin: 0; padding: 4px 6px;
+  background: rgba(16, 16, 16, 0.66);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.55);
+}
+ul#userinfo_username > li { padding: 0; display: inline-block; }
+ul#userinfo_username > li > a {
+  display: block; padding: 6px 11px; border-radius: 999px;
+  font-size: .8rem; line-height: 1.2;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+ul#userinfo_username > li > a:hover { background: rgba(255, 255, 255, 0.07); }
+#userinfo .brackets::before, #userinfo .brackets::after { display: none; }
+
+/* secondary user links: hover dropdown under the username —
+   the native Gazelle pattern (cf. layout.css li#nav_userinfo:hover ul) */
+li#nav_userinfo > a.username::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+ul#userinfo_minor {
+  position: fixed; top: 52px; right: 16px; left: auto;
+  width: 230px; height: auto; margin: 0; padding: 6px 0;
+  transform: translateY(-4px);
+  text-align: left;
+  background: rgba(16, 16, 16, 0.94);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.6);
+  z-index: 1490;
+  visibility: hidden; opacity: 0;
+  transition: opacity .18s var(--ease) .3s, visibility .18s .3s, transform .18s var(--ease) .3s;
+}
+/* invisible strip over the trigger→panel gap so the pointer can cross */
+ul#userinfo_minor::before {
+  content: ""; position: absolute;
+  top: -14px; left: 0; right: 0; height: 14px;
+}
+/* precise trigger for modern browsers; slight delay filters drive-by hovers */
+div#userinfo:has(#nav_userinfo:hover) ul#userinfo_minor {
+  visibility: visible; opacity: 1;
+  transform: translateY(0);
+  transition-delay: .12s;
+}
+/* keep-open while hovering the panel */
+ul#userinfo_minor:hover {
+  visibility: visible; opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+/* whole-chip fallback trigger ONLY for browsers without :has() —
+   elsewhere it would open the panel when aiming at Settings/Logout */
+@supports not selector(:has(a)) {
+  ul#userinfo_username:hover ~ ul#userinfo_minor {
+    visibility: visible; opacity: 1;
+    transform: translateY(0);
+    transition-delay: .12s;
+  }
+}
+ul#userinfo_minor > li { display: block; padding: 0; }
+#userinfo_minor a {
+  line-height: 1; display: block;
+  font-size: .8rem; color: var(--text-dim); letter-spacing: .01em;
+  padding: 8px 16px; margin: 0 5px;
+  border-radius: 8px;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+#userinfo_minor a:hover { color: var(--text-bright); background: rgba(255,255,255,.07); }
+#userinfo_minor a.new-subscriptions, #userinfo_minor li.new-subscriptions a { color: var(--clay-bright); }
+
+#header div#searchbars, #header div.search-bar {
+  width: 100%; text-align: center;
+  background: transparent;
+  padding: 6px 0 14px;
+}
+div#searchbars, div#searchbars ul, div#searchbars ul li, div#searchbars form,
+div.search-bar, div.search-bar ul, div.search-bar ul li, div.search-bar form {
+  background: transparent;
+}
+div#searchbars > ul, div.search-bar > ul { padding: 4px 0; }
+li#searchbar_torrents { margin-left: -23px; }
+li#searchbar_torrents:first-of-type form::before,
+div#searchbars ul li:first-of-type form::before,
+div.search-bar ul li:first-of-type form::before {
+  content: "\f002"; display: inline; font-family: FontAwesome;
+  float: left; width: 16px; height: 25px; vertical-align: middle;
+  line-height: 25px; margin-right: 8px; font-size: 14px;
+  color: var(--text-faint); background: transparent;
+}
+#searchbars li input, #searchbars li input:hover, #searchbars li input:focus,
+.search-bar li input, .search-bar li input:hover, .search-bar li input:focus {
+  padding: 6px 14px; margin: 0 3px; border-radius: 999px;
+}
+#header form.search_form { width: inherit !important; margin: 0 auto; }
+
+div#alerts { width: 100%; }
+.alertbar {
+  text-align: center; padding: 8px;
+  background: color-mix(in srgb, var(--clay) 12%, var(--surface));
+  border-top: 1px solid var(--border);
+}
+.alert-bar { border-top: 1px solid var(--border); }
+
+/* --------------------------------------------------------------------------
+   6. Boxes / cards / panels
+   -------------------------------------------------------------------------- */
+.box::before, .box::after { content: " "; display: table; }
+
+td, form.search_form, .box.pad, #blog .box, .box.thin.clear { background: var(--surface); }
+.panel__body, .sidebar .box, .news_post .pad, .main_column .box, .main_column2 .box,
+#scontent .box, .main-column .box, .main-column2 .box { background: var(--surface); }
+.box.news_post, .huge-movie-list__movie, .alertbar ~ .box, .cover-movie-list__movie,
+.forum-post__avatar-and-body, #inbox .box, .filter_torrents .box.pad,
+div#quickreplytext, div#ft_container, div.pad#threadpoll { background: var(--surface); }
+#inbox .box .body, #inbox .box #buttons .field_div.textarea_wrap { background: var(--surface); }
+.holder { background: var(--bg); }
+.forum-post__avatar-and-body, .alertbar { background: var(--surface); }
+
+.box, .forum_list h3, table.forum_index, .main_column .box, .main-column .box {
+  border-radius: var(--radius);
+}
+.box {
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.panel__body, .panel__heading, .box, .head { padding: 12px; }
+.box .head { margin: -12px -12px 8px !important; }
+.head { margin-bottom: 8px; }
+.box.pad, #blog .box { border-radius: var(--radius); }
+#staff .box.pad { background: transparent !important; }
+.filter_torrents .box.pad.center { background: transparent; }
+
+/* headings inside cards */
+.toggleable-search-form__toggler-container, thead th, .panel__heading,
+.box.filter_torrents .head, .colhead td, .forum-post__heading, .colhead_dark td,
+tr.colhead, tr.colhead_dark, #inbox .box .head, #reply_box h3,
+#inbox form .send_form #quickpost h3, #blog .head,
+.sidebar .box .head, .main_column .box .head.colhead_dark, .box.news_post .head,
+.head.colhead_dark, .main_column .box .head, .main-column .box .head,
+.main-column .box .head.colhead_dark {
+  background: var(--surface-2);
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.forum_list h3 { background: var(--surface-2); }
+tr.colhead { font-weight: 600; }
+div#latest5.pad .head.colhead_dark { border-top: 1px solid var(--border); }
+.main_column .box .head.colhead_dark, .box.news_post .head,
+.main-column .box .head.colhead_dark { border-bottom: 1px solid var(--border); }
+
+.toggleable-search-form__toggler-container, #torrents tr.colhead_dark td,
+.forum-post__heading, #series tr.colhead_dark td, thead th { padding: 10px 12px; }
+
+.box h3, .header h1, .header h2, .header h3, #forums h2 {
+  font-weight: 600; font-size: 1.1rem;
+}
+#staffpm form#messageform, #staffpm #inbox h3, h3, h2 { background: inherit; border: inherit; }
+.box ul.stats.nobullet li { font-size: .8rem; }
+.box.news_post, .box#recommended { font-size: 13.5px; }
+.box.news_post .pad { line-height: 1.6; }
+
+div#covers > div:first-of-type { margin-top: -6px; }
+.box.box_albumart { padding-bottom: 0; }
+.box.box_albumart p { margin-left: -12px; margin-right: -12px; }
+.box.box_albumart p img { max-width: 100% !important; min-width: 100%; }
+#content .thin .sidebar .box.box_image div[style="text-align: center; padding: 10px 0px;"] {
+  margin: -8px -12px -12px !important; padding: 0 !important;
+}
+.sidebar #covers .pad { padding: 6px; }
+#user .sidebar div[align="center"] { min-width: 100%; padding: 0 !important; margin: -8px -12px -12px; }
+#content .thin div[style="height:140px;"] { height: auto !important; background-color: var(--surface); }
+
+/* --------------------------------------------------------------------------
+   7. Tables
+   -------------------------------------------------------------------------- */
+table { width: 100%; }
+td { border-bottom: 1px solid var(--border); padding: 6px 8px; }
+.group td { background: var(--surface-2); }
+table.torrent_table td { max-width: 640px; }
+td.nobr { white-space: nowrap; }
+td.left { text-align: right; }
+td.label { max-width: 150px; width: 150px; text-align: right; vertical-align: middle; }
+.min_padding, #content td.avatar { padding: 0; }
+/* Titles must read identically in every listing. These were id-scoped
+   to #torrent_table — i.e. browse only — so titles rendered medium
+   there and full bold on Top 10, artist and collage pages. */
+table.torrent_table strong { color: var(--text-bright); }
+table.torrent_table b, table.torrent_table strong,
+.group_torrent b, .group_torrent strong { font-weight: 450; }
+/* Listing titles sit a half-step below body text. The weight has to
+   live on the container: browse leaves its titles as bare links and
+   text, while Top 10 wraps them in <strong> — so a strong-based rule
+   styles one page and silently skips the other. */
+table.torrent_table td.big_info .group_info { font-size: 13.5px; font-weight: 450; }
+/* the row's ancillary bits stay at normal weight */
+table.torrent_table td.big_info .group_info .tags a,
+table.torrent_table td.big_info .group_info .add_bookmark a,
+table.torrent_table td.big_info .group_info .torrent_action_buttons a,
+table.torrent_table td.big_info .group_info .votespan,
+table.torrent_table td.big_info .group_info .vote_album,
+table.torrent_table td.big_info .group_info .time { font-weight: 400; }
+.torrent_row, .group_torrent { font-size: .8rem; }
+/* float only the intended right-side clusters, not every span —
+   the blanket float dragged script-injected spans across the row */
+.torrent_row .torrent_action_buttons, .group_torrent .torrent_action_buttons,
+.torrent_row .time, .group_torrent .time,
+.torrent_row .votespan, .group_torrent .votespan,
+.torrent_row .vote_album, .group_torrent .vote_album { float: right; }
+.float_right { float: right; }
+
+.torrent_info_row > td {
+  background: var(--surface-2);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 16px;
+}
+.torrent_info_row .preformatted-text--scrolled { white-space: normal; }
+.torrent_table blockquote, .torrent_table blockquote span, .log3, .log5,
+tr.pad[id*="torrent_"], .torrentdetails, .torrent_info_row {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+/* edition headers on torrent-group pages: distinct band so release
+   types read at a glance */
+tr.edition.group_torrent > td {
+  background: var(--surface-3);
+  border-top: 1px solid var(--border-strong);
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-top: 8px; padding-bottom: 8px;
+}
+tr.edition.group_torrent > td a { color: var(--text); }
+tr.edition.group_torrent > td a:hover { color: var(--gold-bright); }
+
+/* artist page: release-type headers (EPs / Singles / …) are plain
+   colhead_dark rows — give them the same distinct band */
+#artist table.torrent_table tr.colhead_dark > td {
+  background: var(--surface-3);
+  border-top: 1px solid var(--border-strong);
+}
+tr.pad[id*="torrent_"] .linkbox, tr.pad[id*="torrent_"] h2, tr.pad[id*="torrent_"] h3,
+tr.pad[id*="torrent_"] h1, tr.pad[id*="torrent_"] h4,
+tr.pad[id*="torrent_"] .colhead_dark, tr.pad[id*="torrent_"] .colhead,
+.forum-post__heading { font-family: var(--font-body); font-size: 13.5px; }
+tr.pad[id*="torrent_"] ul, tr.pad[id*="torrent_"] h3 { text-align: center; }
+.torrent_info_row .linkbox, .torrent_info_row div#subtitle_manager a,
+.torrent_info_row .bbcode-table-guard a,
+.torrent_info_first_block.movie-page__torrent__panel a[href="#"] {
+  font-family: var(--font-body); font-size: .75rem;
+}
+.torrent_info_row .bbcode-table-guard a { padding: 5px 0; display: inline-block; margin: 0 auto; }
+.torrent_table blockquote { margin: inherit; }
+
+table.forum_index, .forum_list h3 { margin-bottom: 4px; }
+/* the site's global.css centers forum cells; floated last-read/last-poster
+   spans then squeeze titles into ragged centered positions — align left */
+table.forum_index td, table.forum_list td { text-align: left; font-size: .845rem; }
+table.forum_index td.number_column, table.forum_list td.number_column { text-align: right; }
+table.forum_index td.center, table.forum_list td.center { text-align: center; }
+.last_poster { color: var(--text-dim); }
+table#collages, table.collage_table, table.vote_matches_table { width: 100%; }
+table.layout { width: 100%; }
+table.layout, table.layout.border, div#ft_container { font-size: 12.5px; margin: 0 auto; }
+/* The filter form is four sibling tables: the field rows, then three
+   `cat_list` tables (categories, tag grid, random links). Align the
+   field rows on a shared axis; leave the cat_list tables centered. */
+.filter_torrents table.layout { width: 100%; margin: 0; }
+.filter_torrents table.layout td { vertical-align: middle; white-space: nowrap; }
+.filter_torrents table.layout:not(.cat_list) td.label {
+  text-align: right; padding-right: 12px; color: var(--text-dim);
+}
+.filter_torrents table.layout:not(.cat_list) tr > td.label:first-child { width: 27%; }
+.filter_torrents table.layout:not(.cat_list) td:not(.label) { text-align: left; }
+.filter_torrents table.layout input[type="search"],
+.filter_torrents table.layout input[type="text"] { width: 340px; max-width: 100%; }
+/* centered clusters: categories, tag grid, random links / view tags.
+   These tables must shrink to their content — at 100% width each cell
+   takes an equal slice and the items drift to the page edges. */
+.filter_torrents table.cat_list { width: auto; margin: 0 auto; }
+.filter_torrents table.cat_list td {
+  /* max-width must be released too: td.label is clamped to 150px, so
+     wider cell content overflows and collides once the table shrinks */
+  width: auto; max-width: none; text-align: left; white-space: nowrap; padding: 4px 12px;
+}
+.filter_torrents table.cat_list td.random_links { padding-right: 4px; }
+.filter_torrents table.cat_list td.random_links a { margin-right: 14px; }
+/* submit strip: count then buttons, both left — the count is floated in
+   the markup, so text-align would centre the buttons in the leftover
+   space rather than in the box */
+.filter_torrents .submit {
+  display: flex; align-items: center; gap: 28px;
+  padding: 12px 0 4px; margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.filter_torrents .submit span[style*="float"] {
+  float: none !important; font-size: .8rem; color: var(--text-faint);
+}
+/* a pathological unbroken string must never widen the name column */
+table.torrent_table td.big_info, table.torrent_table td[width="100%"] { overflow-wrap: anywhere; }
+
+/* --- typography of the data layer ------------------------------------ */
+/* format strings sit a notch below the surrounding text */
+#torrents table.torrent_table td a[onclick*="gtoggle"] { font-size: .82rem; }
+/* sizes, snatch/seed/leech counts: mono so digits line up column-wise */
+table.torrent_table td.number_column {
+  font-family: var(--font-mono);
+  /* mono figures read optically larger than the sans beside them, so
+     they sit a half-step below the 13.5px titles */
+  font-size: 12.2px;
+  font-variant-numeric: tabular-nums;
+}
+/* NOTE: track durations are not separately marked up — they are just
+   italic spans an uploader typed, indistinguishable from any other
+   emphasis in a description. Restyling them would hijack uploader
+   formatting, so descriptions are left exactly as written. */
+table.layout.border { border-collapse: separate; }
+table.layout.cat_list.ft_cat_list, table.layout.cat_list { text-align: center; }
+table.cat_list, tr#edition_expand { text-align: center; }
+tr.cat_list { text-align: center; }
+#forums table.cat_list { text-align: inherit; }
+td.ft_cataloguenumber, td.ft_remastertitle { width: 33.3%; max-width: 33.3%; }
+
+/* zebra hover for data rows */
+#torrent_table tr:hover > td,
+.forum_index tr:hover > td,
+table.torrent_table tr.torrent:hover > td {
+  background: color-mix(in srgb, var(--gold) 4%, var(--surface));
+}
+
+td a { color: var(--text-bright); }
+td a:hover, a[href*="torrents.php?id"],
+table#torrent_table a[href*="torrents.php?torrentid"] strong { color: var(--gold); }
+a[href*="torrents.php?id"]:hover,
+table#torrent_table a[href*="torrents.php?torrentid"] strong:hover { color: var(--gold-bright); }
+td[colspan="3"] a[href*="torrents.php?id"], .torrent_row a[onclick*=toggle],
+.torrent_row.group_torrent.discog a[href*="torrents.php?id="],
+table.torrent_table tr.group_torrent a[onclick*=toggle] { color: var(--good); }
+td[colspan="3"] a[href*="torrents.php?id"]:hover, .torrent_row a[onclick*=toggle]:hover,
+.torrent_row.group_torrent.discog a[href*="torrents.php?id="]:hover,
+table.torrent_table tr.group_torrent a[onclick*=toggle]:hover { color: var(--gold-bright); }
+/* grouped rows used to render their album links blue while ungrouped
+   rows on the same page — and every other listing — used gold */
+tr.group td[colspan="2"] a[href*="torrents.php?id"]:hover { color: var(--gold-bright); }
+a[onclick*=toggle] { font-weight: initial !important; }
+a[onclick]:focus { outline: 0; background: transparent; }
+
+/* --------------------------------------------------------------------------
+   8. Forums & posts
+   -------------------------------------------------------------------------- */
+.forum_post, table.message_table.checkboxes { width: 100%; }
+.forum_post { margin-bottom: 24px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.forum_post:last-of-type, .forum_post:last-child { margin-bottom: 0; }
+.forum_post td.avatar { width: 16.6%; }
+.forum_post td.body { width: 83.4%; word-break: break-word; font-family: var(--font-prose); font-size: 14px; line-height: 1.55; padding-right: 12px; padding-bottom: 12px; }
+.forum-post__body { word-break: break-word; font-family: var(--font-prose); font-size: 14px; line-height: 1.55; padding: 6px 12px; }
+.forum_post a { color: var(--gold); }
+.forum_post a:focus, td.basic-movie-list__torrent-edition,
+.forum_post .postcontent a:hover { color: var(--gold-bright); }
+.forum_post td a img { display: inline-block; vertical-align: middle; }
+#forums table.forum_post tr td:nth-child(2n) a { font-weight: inherit; }
+.forum_post .colhead_dark td, #torrents table.forum_post tr.colhead_dark td { padding: 7px 12px; }
+.forum-post__heading, .forum_post tr.colhead_dark, .forum_post .colhead_dark td {
+  max-height: 34px; height: 34px; line-height: 34px; padding-top: 0; padding-bottom: 0;
+}
+.forum_post .colhead_dark td, .forum_post tr.colhead_dark, #latest5 .head.colhead_dark { font-weight: inherit; }
+.forum-post__heading img { max-height: 13px; }
+.forum_list h4, .forum_list h3, .forum_list h2, .forum_list h1 { font-size: inherit; font-weight: 600; }
+#forums h4.min_padding { font-size: inherit; font-weight: 600; }
+#forums .forum_list tr td:nth-child(2n) a, table.collage_table tr td:nth-of-type(2) a { font-weight: 600; }
+#forums #content li { padding-left: 10px; }
+table.forum_unread .colhead_dark { border-top: 3px solid var(--clay); }
+#torrents .forum_post img { max-width: 100%; }
+#artist .forum_post td.body, #torrents .forum_post td.body { }
+
+.signature { border-top: 1px dashed var(--border-strong); padding-top: 10px; margin-top: 10px; color: var(--text-dim); }
+
+blockquote {
+  border: none;
+  border-left: 3px solid var(--clay);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(0,0,0,.15);
+  margin: 10px; padding: 10px 12px;
+}
+blockquote div[style="margin:20px; margin-top:5px"] { margin: 5px 0 0 !important; }
+
+/* unread/read state glyphs */
+/* jump-to-last-read arrow: inline after the title (site inline-floats it left) */
+span.last_read { float: none !important; display: inline; margin-left: 7px; }
+span.last_read a::before { content: "\f061"; font-family: FontAwesome; line-height: 31px; color: var(--text-faint); transition: color .2s var(--ease); }
+span.last_read a:hover::before { color: var(--clay); }
+.forum_index span.last_read a::before, table.forum_list span.last_read a::before { line-height: inherit; }
+td.unread::before { content: "\f075"; font-family: FontAwesome; color: var(--clay); }
+td.read::before { content: "\f075"; font-family: FontAwesome; color: var(--text-faint); }
+td.read_sticky::before { content: "\f086"; font-family: FontAwesome; color: var(--text-dim); }
+td.unread_sticky::before { content: "\f086"; font-family: FontAwesome; color: var(--clay); }
+td.read_locked::before { content: "\f023"; font-family: FontAwesome; color: var(--text-dim); }
+td.unread_locked::before { content: "\f023"; font-family: FontAwesome; color: var(--clay); }
+td.read_locked_sticky::before { content: "\f06a"; font-family: FontAwesome; color: var(--text-dim); }
+td.unread_locked_sticky::before { content: "\f06a"; font-family: FontAwesome; color: var(--clay); }
+tr.inbox-message--unread td a, tr.unreadpm a { color: var(--clay-bright); }
+tr.inbox-message--unread td a:hover, tr.unreadpm a:hover { color: var(--text-bright); }
+
+span.user_title { max-height: 32px; color: var(--text-dim) !important; }
+span.user_title span { color: var(--text-dim) !important; }
+span.user_title strong { font-weight: normal !important; }
+
+#reply_box h3, #inbox h3, #staffpm h3 label, #staffpm #compose form h3 label[for="message"] { font-size: 14px; }
+#staffpm #compose form h3 label[for="message"] { margin: 10px 0 0; display: block; }
+#staffpm h3 label { display: block; }
+#inbox .box { margin-bottom: 20px; }
+#inbox .box:last-of-type { margin-bottom: 0; }
+#inbox #wrapper #content .thin div.box.pad table.message_table.checkboxes { text-align: left; }
+#inbox input[type="text"] { margin-bottom: 5px; }
+#inbox input[type="search"] { width: 50%; margin: 4px auto; display: block; color: inherit; }
+div.pad#threadpoll { margin-bottom: 8px; }
+div.pad#threadpoll p strong { clear: both; display: block; color: var(--text-bright); }
+li.graph, #poll_options li { display: block; padding-bottom: 5px; }
+ul.poll.nobullet li { display: block; clear: both; }
+.poll .graph span { display: block; height: 8px; float: left; background: var(--clay); border-radius: 4px; }
+.poll .graph .left_poll, .poll .graph .right_poll { width: 0; background: none; }
+.poll .graph .center_poll { background: var(--clay); }
+
+/* --------------------------------------------------------------------------
+   9. Forms & buttons
+   -------------------------------------------------------------------------- */
+input, input[type="search"], form textarea, form input, select, button, textarea, keygen { border: none; }
+input:not([type="checkbox"]):not([type="radio"]), textarea[name="body"] { padding: 5px 8px; }
+textarea, input:not([type="checkbox"]):not([type="radio"]) {
+  background-color: var(--surface-3); color: var(--text); border-radius: var(--radius-sm);
+}
+
+/* Checkboxes/radios: locked geometry. Any hover rule that grows them
+   shifts them out from under the cursor, which un-hovers and shrinks
+   them again — an endless flicker loop. Nothing here reacts to hover. */
+input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--clay);
+  width: 14px; height: 14px;
+  min-width: 14px; min-height: 14px;
+  max-width: 14px; max-height: 14px;
+  flex: none;
+  padding: 0 !important;
+  margin: 0 6px 0 0;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
+  zoom: 1 !important;
+  vertical-align: middle;
+  cursor: pointer;
+}
+input[type="checkbox"]:hover, input[type="radio"]:hover,
+input[type="checkbox"]:focus, input[type="radio"]:focus,
+input[type="checkbox"]:active, input[type="radio"]:active {
+  width: 14px; height: 14px;
+  min-width: 14px; min-height: 14px;
+  max-width: 14px; max-height: 14px;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  transform: none !important;
+  zoom: 1 !important;
+}
+input[type="text"], input[type="email"] { margin: 1px; }
+
+textarea[name="comment"], input[name="subject"], textarea[name="body"], input[type="text"] {
+  background: var(--surface-3); color: var(--text);
+  border: 1px solid transparent !important;
+  border-radius: var(--radius-sm);
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+textarea[name="comment"]:hover, input[name="subject"]:hover, textarea[name="body"]:hover, input[type="text"]:hover,
+textarea[name="body"]:focus, textarea[name="comment"]:focus, input[name="subject"]:focus, input[type="text"]:focus {
+  background: var(--bg-deep); color: var(--text-bright);
+  border: 1px solid var(--border-strong) !important;
+  outline: none;
+}
+
+form.search_form input, select {
+  background: var(--surface-3); color: var(--text-dim);
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+form.search_form input:hover, select:hover,
+form.search_form input:focus, select:focus {
+  background: var(--bg-deep); color: var(--text-bright);
+  border: 1px solid var(--border-strong); outline: none;
+}
+select { padding: 4px 6px; }
+#inbox input[type="search"] { color: inherit; }
+form.search_form tr td strong { font-weight: 400; }
+.sidebar form.search_form { background: inherit; }
+form.create_form { text-align: center; }
+form.create_form table { display: inline-block; }
+#upload form { text-align: left; }
+
+input[type="submit"], input[type="button"] {
+  padding: 6px 16px; margin: 2px; cursor: pointer;
+  background: var(--surface-3); color: var(--text-bright);
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 999px;
+  font-family: var(--font-body); font-size: .8rem; font-weight: 500;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+input[type="submit"]:hover, input[type="submit"]:focus,
+input[type="button"]:hover, input[type="button"]:focus {
+  background: var(--clay); color: #fff; border-color: var(--clay) !important;
+}
+form.search_form input[type="submit"], form.search_form input[type="button"] { color: var(--text-bright); cursor: pointer; }
+form.search_form input[type="submit"]:hover, form.search_form input[type="button"]:hover {
+  background: var(--clay); color: #fff; cursor: pointer;
+}
+.submit.ft_submit span { font-size: .72rem; margin: 0 10px 0 0; display: block; color: var(--text-faint); }
+.submit span[style="float:left;"] { display: inline; float: none !important; font-size: 12px; }
+.filter_torrents div.submit input { display: inline; margin: 5px 0; }
+
+/* --------------------------------------------------------------------------
+   10. Tags, pills, pagination, tabs
+   -------------------------------------------------------------------------- */
+#taglist tr td a, .huge-movie-list__movie__tag-list a, .movie-tooltip__tag,
+a.basic-movie-list__movie__tag, .tags a,
+ul.stats.nobullet li a[href*="torrents.php?taglist="], a.cover-movie-list__movie__tag {
+  background: var(--surface-3); color: var(--text-dim);
+  padding: 3px 10px; margin: 2px 1px;
+  border-radius: 999px;
+  font-size: .72rem;
+  display: inline-block;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+#taglist tr td a:hover, .huge-movie-list__movie__tag-list a:hover,
+a.basic-movie-list__movie__tag:hover, a.cover-movie-list__movie__tag:hover,
+a.cover-movie-list__movie__tag:focus, #taglist tr td a:focus, .tags a:hover,
+.tags a:focus, .movie-tooltip__tag:hover {
+  background: var(--clay); color: #fff;
+}
+/* sidebar stats lists: plain readable links, roomier rows */
+.sidebar ul.stats.nobullet li { padding: 2.5px 0; line-height: 1.5; }
+.sidebar .stats.nobullet a { color: var(--gold); }
+.sidebar .stats.nobullet a:hover, .sidebar .stats.nobullet a:focus { color: var(--gold-bright); }
+/* hide the literal ", " text nodes between tag pills */
+.tags { font-size: 0; }
+.tags a { font-size: .72rem; }
+#taglist tr td { border: none; }
+#taglist { text-align: center; font-size: .72rem; }
+#taglist tr, #taglist tr td { display: inline; padding: 0; }
+.sidebar .stats.nobullet a.brackets { background: inherit !important; color: inherit; padding: 0 2px; }
+.box_info .stats.nobullet li a { background: inherit; color: var(--gold) !important; font-size: inherit; font-weight: 400; }
+.box_info .stats.nobullet li a:hover { background: inherit; color: var(--gold-bright) !important; }
+#index .sidebar .stats.nobullet a { background: inherit; color: var(--gold); font-weight: inherit; font-size: inherit; }
+#index .sidebar .stats.nobullet a:hover, #index .sidebar .stats.nobullet a:focus { color: var(--gold-bright); }
+ul.stats.nobullet li { display: block; }
+
+.linkbox, .pagination.pagination--top.js-pagination, td,
+.pagination.pagination--bottom.js-pagination { padding: 6px; }
+.linkbox, .pagination.pagination--top.js-pagination, .thin > h2, .header > h2,
+.thin > h3, .header > .linkbox, .filter_torrents > h3,
+.pagination.pagination--bottom.js-pagination { text-align: center !important; }
+.forum_list h3, .pagination.pagination--top, .pagination.pagination--bottom { padding: 6px; }
+.linkbox.pager a, .linkbox a strong { color: var(--text-bright); }
+.linkbox.pager a:hover, .linkbox a strong:hover, .linkbox.pager a strong:hover { color: var(--gold); }
+/* current page (bare <strong>, not a link) stands out in red */
+.linkbox strong, .pagination strong { color: var(--clay-bright); }
+.linkbox a strong, .pagination a strong { color: var(--text-bright); }
+
+/* post headings: quiet post-number/action links so the username carries */
+.forum_post .colhead_dark td > a { color: var(--text-dim); }
+.forum_post .colhead_dark td > a:hover { color: var(--text-bright); }
+.linkbox a.brackets { display: inline-block; padding-bottom: 5px; }
+.movie-tooltip__title-row, .movie-tooltip__tags, .movie-tooltip__ratings,
+.movie-tooltip__director-list, .movie-tooltip__trailer, .movie-tooltip__synopsis { padding-bottom: 5px; }
+
+/* tabs */
+a.tabs__bar__link { background: var(--surface); color: var(--text-dim); border-color: var(--border) !important; }
+.tabs__bar__list { background: var(--surface-2); border-color: var(--border); }
+a.tabs__bar__link:hover { background: var(--surface-2); color: var(--text-bright); }
+li.tabs__bar__item.tabs__bar__item--active, li.tabs__bar__item.tabs__bar__item--active a {
+  background: var(--surface-2); color: var(--text-bright) !important;
+}
+li.tabs__bar__item.tabs__bar__item--active a:hover { background: transparent !important; color: var(--gold); }
+.mediainfo, .movie-page__torrent-report-description,
+.tabs__bar__item--active > .tabs__bar__link,
+.tabs__bar__item--active > .tabs__bar__link:hover,
+.tabs__bar__item--active > .tabs__bar__link:active,
+.tabs__bar__item--active > .tabs__bar__link:focus { border-color: var(--surface-2); }
+a.simple-tabs__link.simple-tabs__link--active { color: var(--gold-bright); }
+
+.ui-tabs, div.ui-tabs-vertical { background: var(--surface) !important; }
+.ui-tabs .ui-tabs-nav li.ui-state-default,
+div.ui-tabs-vertical .ui-tabs-nav li.ui-state-default { background: var(--surface-3) !important; }
+.ui-state-default, .ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default { border: 1px solid var(--border-strong) !important; }
+.ui-widget-content a { color: var(--text-bright) !important; }
+.ui-widget-content a:hover { color: var(--gold) !important; }
+
+/* --------------------------------------------------------------------------
+   11. Popups, tooltips, notifications
+   -------------------------------------------------------------------------- */
+.qtip-content, .qtip-content:hover {
+  background: var(--overlay);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 10px; border-radius: var(--radius-sm);
+}
+.autocomplete-suggestion { padding: 6px 8px; }
+.autocomplete-suggestions {
+  background: var(--bg-deep); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: .72rem; box-shadow: var(--shadow-pop); overflow: hidden;
+}
+.autocomplete-suggestions strong, #index .panel__heading__title a:hover { color: var(--gold-bright); }
+.autocomplete-selected { background: var(--surface-2) !important; color: var(--text-bright); border: none; font-size: .72rem; }
+.search-bar__results, ul#torrentscomplete, ul#artistcomplete { background: var(--bg-deep); }
+ul#torrentscomplete li a, ul#artistcomplete li a { padding: 4px 6px; }
+.search-bar__results a { border-bottom: 1px solid var(--border); }
+
+/* autocomplete: neutral suggestions, red matched substring */
+.autocomplete-suggestions, .autocomplete-suggestion a,
+ul#torrentscomplete li a, ul#artistcomplete li a, .search-bar__results a { color: var(--text); }
+.autocomplete-suggestions strong, .search-bar__results strong {
+  color: var(--clay-bright); font-weight: 600;
+}
+.autocomplete-selected, .autocomplete-selected a { color: var(--text-bright); }
+
+.noty_message, ul#noty_bottomRight_layout_container li, .noty_buttons {
+  background: var(--surface) !important; color: var(--text) !important;
+  border: none !important; border-radius: var(--radius-sm) !important;
+}
+div.noty_bar { border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; }
+
+.lightbox { position: fixed; text-align: center; top: 5%; left: 5%; width: 90%; height: 90%; overflow: auto; z-index: 2001; }
+.lightbox img { max-width: 100%; max-height: 100%; z-index: -1; background-color: transparent; }
+.curtain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: .92; background: var(--bg-deep) 50% 0 no-repeat fixed; }
+
+div#Bbcode_Toolbar, .bbcode-toolbar__button { background: var(--surface-3); }
+.bbcode-toolbar__button { border: 4px solid var(--surface-3); border-radius: var(--radius-sm); }
+.bbcode-toolbar__button:hover { background-color: var(--border-strong); }
+#quickreplytext div.bbcode-btntoolbar { text-align: center; }
+
+/* --------------------------------------------------------------------------
+   12. Index page specifics
+   -------------------------------------------------------------------------- */
+div#last5 {
+  width: calc(20% - 4px) !important; margin: 0 4px 0 0 !important; padding: 0 !important;
+  display: block !important; float: left !important; text-align: center;
+}
+div#last5:last-of-type { margin-right: 0 !important; width: 20% !important; }
+div#last5:last-child { border-right: none; }
+div#last5 a strong { margin-top: 5px; display: block; }
+#last5 img { width: 100%; height: auto; border-radius: var(--radius-sm); }
+div#latest5 > div { margin-left: -12px; margin-right: -12px; margin-top: -8px; }
+div#latest5normal::after, div#latest5internals::after, div#latest5userreleases::after {
+  content: ""; display: block; clear: both;
+}
+.of_the_month > .box:first-child { width: calc(50% - 4px); margin-right: 4px; }
+.of_the_month > .box { width: 50%; display: block; }
+.of_the_month > .box ul.stats.nobullet { margin-left: -12px; margin-right: -12px; }
+.of_the_month > .box ul.stats.nobullet li { padding-right: 12px; padding-left: 12px; }
+.of_the_month > .box ul.stats.nobullet li:first-child { padding: 0; }
+
+/* --------------------------------------------------------------------------
+   13. Collages, covers, artist pages
+   -------------------------------------------------------------------------- */
+.collage tr td, .collage tr td:first-of-type, .collage tr td:first-child,
+.collage tr td:last-of-type, .collage tr td:last-child { display: inline-block; }
+.collage a[href*="torrents.php?id"] img { max-width: 128px; border-radius: var(--radius-sm); }
+table#collage_table td { min-width: 20% !important; display: table-cell; float: left; }
+table#collage_table { max-width: 100%; display: table; position: relative; margin: 0 auto; text-align: center; width: 100%; }
+table#collage_table img { min-width: 100%; border-radius: var(--radius-sm); }
+#coverart ul.collage_images li { width: 20%; height: auto; display: inline-block; vertical-align: top; float: none; }
+#coverart ul.collage_images li img, #coverart ul.collage_images li a { min-width: 100%; width: 100%; height: auto; }
+#coverart ul.collage_images { width: 100%; }
+#covers img, #artist .sidebar img { z-index: 1; }
+#artist .sidebar img { width: 100%; height: auto; min-width: 100%; border-radius: var(--radius-sm); }
+div#add_cover_div::after { content: " "; width: 100%; display: table; clear: both; }
+div.thin > center img#banner, #series .sidebar img,
+div[style="height:140px; max-height:140px;max-width:758px;"] { position: relative; }
+
+#user .main_column table[cellpadding="0"] tr td,
+div.body table tbody tr td[style="width: 20%"],
+#user .main-column table[cellpadding="0"] tr td { width: 20%; float: left; display: block; vertical-align: top; }
+#user .main_column table[cellpadding="0"] tr td a,
+#user .main_column table[cellpadding="0"] tr td a img,
+#user .main-column table[cellpadding="0"] tr td a,
+#user .main-column table[cellpadding="0"] tr td a img { width: 100%; }
+#user .main_column table[cellpadding="0"] tr td[colspan="5"],
+#user .main-column table[cellpadding="0"] tr td[colspan="5"] { width: 100%; }
+#user #slider .scroll { width: 100%; }
+div.body table tbody tr td[style="width: 20%"] { padding: 0; vertical-align: top; }
+
+.basic-movie-list__movie__rating-container, .movie-tooltip__ratings div { background: var(--surface-3); }
+.basic-movie-list__movie__rating-container:hover { background: var(--bg-deep); }
+.movie-tooltip__ratings div, .movie-tooltip__director-list div, .movie-tooltip__ratings { display: inline-block; }
+.movie-tooltip__ratings div { margin-right: 4px; }
+.movie-tooltip__action-row { border-color: var(--border) !important; }
+.js-basic-movie-list__table-body > tr.basic-movie-list__details-row { border-color: var(--bg); }
+
+a.basic-movie-list__movie__tag, .huge-movie-list__movie__tag-list a { color: var(--text-dim); }
+input[type="submit"], input[type="button"], a.huge-movie-list__movie__title,
+a.huge-movie-list__movie__director { color: var(--text-bright); }
+#torrents a.huge-movie-list__movie__title:hover, #torrents a.huge-movie-list__movie__director:hover { color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   14. Misc structural retentions
+   -------------------------------------------------------------------------- */
+body#actorshowcase #content table { display: inline-block; width: 24.7%; text-align: center; margin: 0 0 7px; vertical-align: top; }
+body#actorshowcase #content table tbody { display: inline-block; text-align: initial; }
+body#actorshowcase #content table:first-of-type { display: none; }
+/* forum search: the checkbox grid is a real table — inline-block cells
+   collapsed it into a ragged flow with stray cell borders showing */
+table#forum_search_cat_list {
+  width: 100%; text-align: left;
+  border-collapse: separate; border-spacing: 0 3px;
+}
+table#forum_search_cat_list tr td {
+  display: table-cell; vertical-align: middle; text-align: left;
+  border: none; padding: 3px 14px 3px 0; white-space: nowrap;
+}
+/* category rows become bands, with Check all pushed to the right */
+table#forum_search_cat_list td.forum_cat {
+  background: var(--surface-3);
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  font-family: var(--font-display);
+  font-size: .72rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+table#forum_search_cat_list td.forum_cat strong { color: var(--text-bright); font-weight: 600; }
+table#forum_search_cat_list td.forum_cat a.forum_category {
+  float: right; text-transform: none; letter-spacing: 0; font-size: .76rem;
+}
+/* the search form's label column, so "Forums:" sits atop its grid */
+#forums form.search_form > table.layout > tbody > tr > td:first-child {
+  width: 17%; text-align: right; padding-right: 14px;
+  vertical-align: top; color: var(--text-dim);
+}
+#forums form.search_form > table.layout > tbody > tr > td:first-child strong { font-weight: 500; }
+#forums form.search_form input.date_picker { width: 150px; }
+#content li { list-style-type: inherit; list-style-position: inside; }
+#rules #content li { display: list-item; }
+table#torrent_details li, .forum_post li, .news_post .pad li { display: list-item; }
+#wiki .main_column .box li, #wiki .main-column .box li { display: block; }
+
+/* wiki articles carry three heading levels with almost no visual
+   distance between them: h3 becomes a section band, h4 a ruled
+   subsection, so the outline is readable while scrolling */
+.wiki_article h3 {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1.1rem; font-weight: 600; letter-spacing: -.01em;
+  color: var(--text-bright);
+  background: var(--surface-2);
+  border-left: 3px solid var(--clay);
+  border-radius: var(--radius-sm);
+  margin: 28px 0 12px;
+  padding: 9px 14px;
+}
+.wiki_article h3:first-child { margin-top: 0; }
+.wiki_article h4 {
+  text-align: left;
+  font-size: .98rem; font-weight: 600;
+  color: var(--gold-bright);
+  margin: 20px 0 7px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid var(--border);
+}
+/* the size5 wrapper around section headings would blow them up */
+.wiki_article span[class*="size"] > h3 { font-size: 1.1rem; }
+.big_info .group_info.clear .torrent_action_buttons,
+.big_info .group_info.clear .add_bookmark,
+.big_info .group_info.clear .votespan,
+.big_info .group_info.clear .vote_album { float: right; }
+#request_table .rowb td:first-of-type > a, #request_table .rowa td > a { font-weight: 600; }
+#request_table .rowb td:first-of-type > a:nth-child(2n),
+#request_table .rowa td > a:nth-child(2n) { color: var(--gold); }
+.group_info > a:nth-child(2n):hover, .group_info > a:nth-child(3n):hover { color: var(--gold-bright); }
+/* Top 10 rows carry the format string inline with the title as a bare
+   text node — it cannot be selected. Mute the container and restore
+   everything that IS wrapped, leaving only the format de-emphasized.
+   Kept on one line: breaking it stranded the leading "- " and fell
+   apart on non-music uploads (software, books) whose bracket content
+   differs. */
+#top10 td.big_info .group_info { color: var(--text-faint); font-size: .76rem; }
+#top10 td.big_info .group_info > strong:not(.torrent_label) {
+  color: var(--text-bright);
+  font-size: 13.5px;
+}
+/* the right-side clusters ran together as "BookmarkDL | FL" */
+#top10 td.big_info .group_info .torrent_action_buttons { margin-left: 10px; }
+#top10 td.big_info .group_info .tags a { color: var(--text-dim); }
+#top10 td.big_info .group_info .add_bookmark a,
+#top10 td.big_info .group_info .torrent_action_buttons a { font-size: .78rem; }
+
+#top10 #content .thin p { width: 100%; text-align: center; display: block; }
+#top10 #content .thin p strong, #top10 #content .thin p small { display: inline-block; font-size: .875rem; }
+a[rel="noreferrer"] img[style="max-width: 500px;"] { max-width: 32.86%; margin: 0; border-radius: var(--radius-sm); }
+#forums a[rel="noreferrer"] img[style="max-width: 500px;"] { width: inherit; }
+#torrents a[rel="noreferrer"] img[style="max-width: 500px;"] { max-width: 32.673%; }
+/* group collapse/expand toggles — FontAwesome glyphs, no image dependency */
+.show_torrents_link { border: none; width: 28px; height: 28px; display: block; }
+.hide_torrents, .show_torrents { width: 28px; height: 28px; opacity: 1; background: none; }
+.show_torrents .show_torrents_link::before,
+.hide_torrents .show_torrents_link::before {
+  font-family: FontAwesome; font-size: 15px; line-height: 28px;
+  display: block; text-align: center;
+  color: var(--text-faint);
+  transition: color .2s var(--ease);
+}
+.show_torrents .show_torrents_link::before { content: "\f0fe"; } /* plus-square: expand */
+.hide_torrents .show_torrents_link::before { content: "\f146"; } /* minus-square: collapse */
+.show_torrents .show_torrents_link:hover::before,
+.hide_torrents .show_torrents_link:hover::before { color: var(--gold); }
+
+/* snatches / seeders / leechers column headers — replace stylesheet images */
+td.sign img { display: none; }
+td.sign a::before, td.sign:not(:has(a))::before {
+  font-family: FontAwesome; font-size: 14px;
+  display: inline-block; width: 16px; text-align: center;
+}
+/* icons live on the sort link when there is one (torrents.php),
+   else on the cell itself (artist.php has no sort links) */
+td.sign.snatches a::before, td.sign.snatches:not(:has(a))::before { content: "\f019"; color: var(--text-dim); }  /* download */
+td.sign.seeders a::before,  td.sign.seeders:not(:has(a))::before  { content: "\f062"; color: var(--good); }      /* arrow-up */
+td.sign.leechers a::before, td.sign.leechers:not(:has(a))::before { content: "\f063"; color: var(--bad); }       /* arrow-down */
+td.sign a:hover::before { color: var(--gold); }
+#content .sidebar ul.nobullet h2 { text-align: inherit !important; }
+.toggleable-search-form__toggler-container, #blog .pad, #index .main_column .box,
+#index .main-column .box, #wiki .main_column .box, #wiki .main-column .box,
+#wiki .main-column { font-size: .875rem; }
+.thin > h2 > a[href*="series.php"]::after { color: var(--text); }
+h2 small a, .user-info-bar, .search-bar__search-field__input, .page__title a,
+.linkbox a, .torrent-info-link, .movie-tooltip__rating__title > a,
+#index .panel__heading__title a,
+tbody.js-basic-movie-list__table-body a[href*="torrents.php?id"] { color: var(--text-dim); }
+tbody.js-basic-movie-list__table-body a[href*="torrents.php?id"].basic-movie-list__movie__title:hover,
+tbody.js-basic-movie-list__table-body a[href*="torrents.php?id"]:hover { color: var(--gold-bright); }
+span.movie-tooltip__rating__title, span.movie-tooltip__rating__title a { color: var(--text-bright); }
+a.tabs__bar__link:hover, span.movie-tooltip__rating__title:hover,
+span.movie-tooltip__rating__title a:hover { background: var(--surface-3) !important; }
+
+/* --------------------------------------------------------------------------
+   15. Functional colors — inline-style recolors
+   -------------------------------------------------------------------------- */
+span[style="color: red;"], strong.important_text, strong[style="color: red;"],
+table.torrent_table strong.tl_reported { color: var(--bad) !important; }
+/* status labels: explicit colors on any torrent table markup */
+.torrent_table strong.tl_notice { color: var(--good) !important; }
+.torrent_table strong.tl_free { color: var(--info) !important; }
+.torrent_table strong.tl_snatched { color: var(--text-dim) !important; }
+span[style="color: yellow;"] { color: var(--warn) !important; }
+span[style="color: aqua;"] { color: #89c6ca !important; }
+span[style="color: green;"] { color: var(--good) !important; }
+span[style="color: grey;"] { color: var(--text-faint) !important; }
+[style="color:#007fff"] { color: var(--info) !important; }
+[style="color:red"] { color: var(--bad) !important; }
+a[style="color:lightgreen;margin:0px;padding:0px;"] { color: var(--good) !important; }
+a[style="color:lightgreen;margin:0px;padding:0px;"]:hover { color: var(--gold-bright) !important; }
+a[href*="#last5gp_table"], .golden-popcorn-character { color: var(--gold-bright); }
+a[href*="#last5gp_table"]:hover { color: var(--text-bright); }
+#wrapper .alert-bars a { color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   16. Functional colors — ratio / status / classes
+   -------------------------------------------------------------------------- */
+.r00 { color: #d1564e; }
+.r01 { color: #d4664f; }
+.r02 { color: #d77650; }
+.r03 { color: #da8651; }
+.r04 { color: #dd9652; }
+.r05 { color: #e0a653; }
+.r06 { color: #e2b354; }
+.r07 { color: #e5c055; }
+.r08 { color: #e8cd57; }
+.r09 { color: #ebd958; }
+.r10 { color: #8fbc7f; }
+.r20 { color: #7fc48a; }
+.r50 { color: #8fdb9c; }
+.r99, span.r99 { color: #a8efb2; }
+
+.ratio-00, .ratio-01, .ratio-02, .ratio-03, .ratio-04, .bonus-point-history--sent,
+.no-seeders, .snatchlist-status--not-seeding, .snatchlist-status--hnr,
+.encoding-history-status--expired, .missing-torrent-status--missing,
+.torrent-info__reported, .torrent-info-link--user-leeching, .alert--error,
+.forum-post__id--staff-post { color: var(--bad); }
+.ratio-05, .ratio-06, .ratio-07, .snatchlist-status--removed-hnr,
+.encoding-history-status--canceled, .missing-torrent-status--trumpable,
+.torrent-info__trumpable { color: #e0954c; }
+.ratio-08, .ratio-09, .torrent-info-link--user-seeding { color: var(--warn); }
+.ratio-10, .ratio-20, .ratio-50, .ratio-infinite, .bonus-point-history--received,
+.snatchlist-status--seeding, .snatchlist-status--not-hnr,
+.encoding-history-status--finished, .missing-torrent-status--exists,
+.torrent-info-link--user-downloaded { color: var(--good); }
+a.torrent-info-link--user-snatched { color: #6b9fd1; }
+a.torrent-info-link--user-uploaded { color: #a184c9; }
+.tor_highlight_seed { color: #93d4a2 !important; }
+.tor_highlight_leech { color: var(--warn) !important; }
+.tor_highlight_snatch { color: #d15a6e !important; }
+
+/* user-class colors (kept from Genaviv, gently desaturated) */
+a.permission_2,  .permission_2  { color: #ffffff; }
+a.permission_3,  .permission_3  { color: #bec2cc; }
+a.permission_4,  .permission_4  { color: #4aac85; }
+a.permission_5,  .permission_5  { color: #5ecea6; }
+a.permission_24, .permission_24 { color: #78dfaf; }
+a.permission_7,  .permission_7  { color: #97ecb0; }
+a.permission_33, .permission_33 { color: #b7f8af; }
+a.permission_43, .permission_43 { color: #cdffae !important; }
+a.permission_28, .permission_28 { color: #fbde6e; }
+a.permission_35, .permission_35 { color: #fbd567; }
+a.permission_37, .permission_37 { color: #fac55f; }
+a.permission_6,  .permission_6  { color: #f9b35e; }
+a.permission_9,  .permission_9  { color: #f8a45d; }
+a.permission_8,  .permission_8  { color: #f7995b; }
+a.permission_32, .permission_32 { color: #d75067; }
+a.permission_29, .permission_29 { color: #cf4a6e; }
+a.permission_34, .permission_34 { color: #c44578; }
+a.permission_30, .permission_30 { color: #be4a80; }
+a.permission_11, .permission_11 { color: #4be0d5; }
+a.permission_14, .permission_14 { color: #41c7bd; }
+a.permission_36, .permission_36 { color: #3cb7b5; }
+a.permission_1,  .permission_1  { color: #35a3ac; }
+a.permission_42, .permission_42 { color: #2e8fa3; }
+a.permission_15, .permission_15 { color: #29829d; }
+a.permission_31, .permission_31 { color: #6ee06e; }
+a.permission_26, .permission_26 { color: #4be0d5; }
+a.permission_38, .permission_38 { color: #a875e8; }
+a.permission_10, .permission_10 { color: #f0e68c; }
+a.permission_12, .permission_12 { color: #d1564e; }
+a.permission_13, .permission_13 { color: #a98080; }
+a.permission_22, .permission_22 { color: #f08c40; }
+a.permission_25, .permission_25 { color: #a05070; }
+a.permission_27, .permission_27 { color: #50e8c0; }
+
+/* release/source format colors */
+.TS { color: #be5a7d; }
+.MP4 { color: #f7995b; }
+.MKV { color: #d75067; }
+.AVI { color: #fbd567; }
+.M4V { color: #f08040; }
+.MPEG { color: #e85a80; }
+.Internal { color: #cdffae; }
+.None, .\0D\0D\0D { color: #cf4a6e; }
+.P2P { color: #35a3ac; }
+.Scene { color: #4be0d5; }
+.User { color: #ffffff; }
+
+/* --------------------------------------------------------------------------
+   17. Accessibility & motion
+   -------------------------------------------------------------------------- */
+:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; border-radius: 2px; }
+
+/* narrow viewports: un-fix the menu and stack columns instead of overlapping */
+@media (max-width: 960px) {
+  #menu, .main-menu {
+    position: static;
+    left: auto; transform: none;
+    width: 100%; max-width: 100%;
+    height: auto; min-height: 0;
+    padding: 2px 0;
+    background: var(--bg-deep);
+    border: none; border-radius: 0; box-shadow: none;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  #menu ul > li, .main-menu ul > li { padding: 2px; display: inline-block; }
+  #header { padding-top: 6px; }
+  ul#userinfo_username, ul#userinfo_major, ul#userinfo_stats { display: block !important; padding: 2px 0; }
+  ul#userinfo_username { position: static; background: transparent; border: none; box-shadow: none; }
+  ul#userinfo_minor { top: 108px; left: 8px; right: 8px; width: auto; }
+  div#searchbars ul li, div.search-bar ul li { display: inline-block; }
+  #searchbars li input, .search-bar li input { margin: 3px; }
+  li#searchbar_torrents { margin-left: 0; }
+  li#searchbar_torrents:first-of-type form::before,
+  div#searchbars ul li:first-of-type form::before,
+  div.search-bar ul li:first-of-type form::before { display: none; }
+  .sidebar, .main_column, .main-column { width: 100%; float: none; padding: 0; }
+  .sidebar { margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* --------------------------------------------------------------------------
+   18. Stats graphs (SVG charts) — missing from the original theme
+   -------------------------------------------------------------------------- */
+.chart-text { fill: #e0e0e0; }
+.labels { fill: #999; }
+.label-title { fill: #bbb; }
+.bar-value { fill: #e0e0e0; }
+.vertical-graph-line:hover { stroke: rgba(10, 10, 10, 0.4); }
+.graphs .shape-1 { background-color: #F15854; }
+.graphs .shape-2 { background-color: #FAA43A; }
+.graphs .shape-3 { background-color: #5DA5DA; }
+.graphs .shape-4 { background-color: #60BD68; }
+.graphs .shape-5 { background-color: #4D4D4D; }
+.graphs .shape-6 { background-color: #FFB4A3; }
+.graphs .shape-7 { background-color: #FFD9A8; }
+.graphs .shape-8 { background-color: #ADD6FF; }
+.graphs .shape-9 { background-color: #97D87D; }
+.graphs .shape-10 { background-color: #E1E278; }
+.graphs .shape-11 { background-color: #CD89E5; }
+.graphs .shape-12 { background-color: #FF84CE; }
+.graphs .shape-13 { background-color: #7072FF; }
+.graphs .shape-14 { background-color: #71E2B9; }
+.graphs .shape-15 { background-color: #46A9DD; }
+.graphs .shape-16 { background-color: #BA915B; }
+.graphs .shape-17 { background-color: #98D831; }
+.graphs .shape-18 { background-color: #B7493A; }
+.graphs .shape-19 { background-color: #DD6899; }
+.graphs .shape-20 { background-color: #4DC6AA; }
+.graphs .shape-21 { background-color: #C4CE56; }
+.graphs .shape-22 { background-color: #6595D3; }
+.graphs .shape-23 { background-color: #D6B93B; }
+.graphs .shape-24 { background-color: #5ADD5F; }
+.graphs .chart-color-1 { stroke: #F15854; transition: all .2s linear; }
+.graphs .chart-color-2 { stroke: #FAA43A; transition: all .2s linear; }
+.graphs .chart-color-3 { stroke: #5DA5DA; transition: all .2s linear; }
+.graphs .chart-color-4 { stroke: #60BD68; transition: all .2s linear; }
+.graphs .chart-color-5 { stroke: #4D4D4D; transition: all .2s linear; }
+.graphs .chart-color-6 { stroke: #FFB4A3; transition: all .2s linear; }
+.graphs .chart-color-7 { stroke: #FFD9A8; transition: all .2s linear; }
+.graphs .chart-color-8 { stroke: #ADD6FF; transition: all .2s linear; }
+.graphs .chart-color-9 { stroke: #97D87D; transition: all .2s linear; }
+.graphs .chart-color-10 { stroke: #E1E278; transition: all .2s linear; }
+.graphs .chart-color-11 { stroke: #CD89E5; transition: all .2s linear; }
+.graphs .chart-color-12 { stroke: #FF84CE; transition: all .2s linear; }
+.graphs .chart-color-13 { stroke: #7072FF; transition: all .2s linear; }
+.graphs .chart-color-14 { stroke: #71E2B9; transition: all .2s linear; }
+.graphs .chart-color-15 { stroke: #46A9DD; transition: all .2s linear; }
+.graphs .chart-color-16 { stroke: #BA915B; transition: all .2s linear; }
+.graphs .chart-color-17 { stroke: #98D831; transition: all .2s linear; }
+.graphs .chart-color-18 { stroke: #B7493A; transition: all .2s linear; }
+.graphs .chart-color-19 { stroke: #DD6899; transition: all .2s linear; }
+.graphs .chart-color-20 { stroke: #4DC6AA; transition: all .2s linear; }
+.graphs .chart-color-21 { stroke: #C4CE56; transition: all .2s linear; }
+.graphs .chart-color-22 { stroke: #6595D3; transition: all .2s linear; }
+.graphs .chart-color-23 { stroke: #D6B93B; transition: all .2s linear; }
+.graphs .chart-color-24 { stroke: #5ADD5F; transition: all .2s linear; }
+.graphs .chart-color-1:hover { stroke: #D22B27; }
+.graphs .chart-color-2:hover { stroke: #D07F1A; }
+.graphs .chart-color-3:hover { stroke: #1E70AC; }
+.graphs .chart-color-4:hover { stroke: #26B132; }
+.graphs .chart-color-5:hover { stroke: #383838; }
+.graphs .chart-color-6:hover { stroke: #FF927A; }
+.graphs .chart-color-7:hover { stroke: #E89D3C; }
+.graphs .chart-color-8:hover { stroke: #88B9EA; }
+.graphs .chart-color-9:hover { stroke: #5DC16A; }
+.graphs .chart-color-10:hover { stroke: #A8B218; }
+.graphs .chart-color-11:hover { stroke: #A752C4; }
+.graphs .chart-color-12:hover { stroke: #C64B95; }
+.graphs .chart-color-13:hover { stroke: #4E51DB; }
+.graphs .chart-color-14:hover { stroke: #40C494; }
+.graphs .chart-color-15:hover { stroke: #2174A0; }
+.graphs .chart-color-16:hover { stroke: #8C6635; }
+.graphs .chart-color-17:hover { stroke: #6CA315; }
+.graphs .chart-color-18:hover { stroke: #7C271C; }
+.graphs .chart-color-19:hover { stroke: #B2406F; }
+.graphs .chart-color-20:hover { stroke: #329981; }
+.graphs .chart-color-21:hover { stroke: #9BAA38; }
+.graphs .chart-color-22:hover { stroke: #436FA8; }
+.graphs .chart-color-23:hover { stroke: #9B8520; }
+.graphs .chart-color-24:hover { stroke: #268E2A; }
+.graphs .bar-color-1 { fill: #F15854; transition: all .2s linear; }
+.graphs .bar-color-2 { fill: #FAA43A; transition: all .2s linear; }
+.graphs .bar-color-3 { fill: #5DA5DA; transition: all .2s linear; }
+.graphs .bar-color-4 { fill: #60BD68; transition: all .2s linear; }
+.graphs .bar-color-5 { fill: #4D4D4D; transition: all .2s linear; }
+.graphs .bar-color-6 { fill: #FFB4A3; transition: all .2s linear; }
+.graphs .bar-color-7 { fill: #FFD9A8; transition: all .2s linear; }
+.graphs .bar-color-8 { fill: #ADD6FF; transition: all .2s linear; }
+.graphs .bar-color-9 { fill: #97D87D; transition: all .2s linear; }
+.graphs .bar-color-10 { fill: #E1E278; transition: all .2s linear; }
+.graphs .bar-color-11 { fill: #CD89E5; transition: all .2s linear; }
+.graphs .bar-color-12 { fill: #FF84CE; transition: all .2s linear; }
+.graphs .bar-color-13 { fill: #7072FF; transition: all .2s linear; }
+.graphs .bar-color-14 { fill: #71E2B9; transition: all .2s linear; }
+.graphs .bar-color-15 { fill: #46A9DD; transition: all .2s linear; }
+.graphs .bar-color-16 { fill: #BA915B; transition: all .2s linear; }
+.graphs .bar-color-17 { fill: #98D831; transition: all .2s linear; }
+.graphs .bar-color-18 { fill: #B7493A; transition: all .2s linear; }
+.graphs .bar-color-19 { fill: #DD6899; transition: all .2s linear; }
+.graphs .bar-color-20 { fill: #4DC6AA; transition: all .2s linear; }
+.graphs .bar-color-21 { fill: #C4CE56; transition: all .2s linear; }
+.graphs .bar-color-22 { fill: #6595D3; transition: all .2s linear; }
+.graphs .bar-color-23 { fill: #D6B93B; transition: all .2s linear; }
+.graphs .bar-color-24 { fill: #5ADD5F; transition: all .2s linear; }
+.graphs .bar-color-1:hover { fill: #D22B27; }
+.graphs .bar-color-2:hover { fill: #D07F1A; }
+.graphs .bar-color-3:hover { fill: #1E70AC; }
+.graphs .bar-color-4:hover { fill: #26B132; }
+.graphs .bar-color-5:hover { fill: #383838; }
+.graphs .bar-color-6:hover { fill: #FF927A; }
+.graphs .bar-color-7:hover { fill: #E89D3C; }
+.graphs .bar-color-8:hover { fill: #88B9EA; }
+.graphs .bar-color-9:hover { fill: #5DC16A; }
+.graphs .bar-color-10:hover { fill: #A8B218; }
+.graphs .bar-color-11:hover { fill: #A752C4; }
+.graphs .bar-color-12:hover { fill: #C64B95; }
+.graphs .bar-color-13:hover { fill: #4E51DB; }
+.graphs .bar-color-14:hover { fill: #40C494; }
+.graphs .bar-color-15:hover { fill: #2174A0; }
+.graphs .bar-color-16:hover { fill: #8C6635; }
+.graphs .bar-color-17:hover { fill: #6CA315; }
+.graphs .bar-color-18:hover { fill: #7C271C; }
+.graphs .bar-color-19:hover { fill: #B2406F; }
+.graphs .bar-color-20:hover { fill: #329981; }
+.graphs .bar-color-21:hover { fill: #9BAA38; }
+.graphs .bar-color-22:hover { fill: #436FA8; }
+.graphs .bar-color-23:hover { fill: #9B8520; }
+.graphs .bar-color-24:hover { fill: #268E2A; }
