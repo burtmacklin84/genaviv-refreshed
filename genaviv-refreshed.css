@@ -243,7 +243,7 @@ ul#userinfo_minor {
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.6);
-  z-index: 1490;
+  z-index: 10000002;
   visibility: hidden; opacity: 0;
   transition: opacity .18s var(--ease) .3s, visibility .18s .3s, transform .18s var(--ease) .3s;
 }
@@ -313,7 +313,8 @@ div#alerts { width: 100%; }
 div#alerts { text-align: center; padding: 6px 0 2px; }
 .alertbar {
   display: inline-block;
-  padding: 6px 16px;
+  padding: 0;
+  overflow: hidden;
   background: color-mix(in srgb, var(--clay) 14%, var(--surface));
   border: 1px solid color-mix(in srgb, var(--clay) 34%, var(--border));
   border-radius: 999px;
@@ -321,9 +322,11 @@ div#alerts { text-align: center; padding: 6px 0 2px; }
   text-align: center;
   transition: background .2s var(--ease), border-color .2s var(--ease);
 }
+
+.alertbar:not(:has(> a)) { padding: 6px 16px; }
+#header .alertbar > a { display: block; padding: 6px 16px; color: var(--clay-bright); }
 .alertbar:hover { background: color-mix(in srgb, var(--clay) 22%, var(--surface)); }
-#header .alertbar a { color: var(--clay-bright); }
-#header .alertbar a:hover { color: var(--text-bright); }
+#header .alertbar:hover > a { color: var(--text-bright); }
 .alert-bar { border-top: 1px solid var(--border); }
 
 .box::before, .box::after { content: " "; display: table; }
@@ -842,6 +845,7 @@ ul#noty_bottomRight_layout_container {
   top: 58px !important;
   bottom: auto !important;
   right: 16px !important;
+  left: auto !important;
   width: 300px !important;
 }
 ul#noty_bottomRight_layout_container li {
