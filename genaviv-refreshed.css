@@ -977,21 +977,21 @@ table#forum_search_cat_list td.forum_cat a.forum_category {
 }
 table#forum_search_cat_list td.forum_cat a.forum_category:hover { color: var(--gold-bright); }
 
-#forums form.search_form > table.layout > tbody > tr > td:first-child {
+#forums #content form.search_form > table.layout > tbody > tr > td:first-child {
   width: 17%; text-align: right; padding-right: 14px;
   vertical-align: top; color: var(--text-dim);
 }
-#forums form.search_form > table.layout > tbody > tr > td:first-child strong { font-weight: 500; }
+#forums #content form.search_form > table.layout > tbody > tr > td:first-child strong { font-weight: 500; }
 
-#forums form.search_form input[type="search"],
-#forums form.search_form input[type="text"]:not(.date_picker) {
+#forums #content form.search_form input[type="search"],
+#forums #content form.search_form input[type="text"]:not(.date_picker) {
   width: 420px; max-width: 100%;
 }
-#forums form.search_form input.date_picker { width: 132px; text-align: center; }
-#forums form.search_form td > input[type="radio"] { margin-left: 14px; }
-#forums form.search_form td > input[type="radio"]:first-of-type { margin-left: 0; }
-#forums form.search_form label { margin-right: 4px; }
-#forums form.search_form input[type="submit"] { padding: 7px 22px; }
+#forums #content form.search_form input.date_picker { width: 132px; text-align: center; }
+#forums #content form.search_form td > input[type="radio"] { margin-left: 14px; }
+#forums #content form.search_form td > input[type="radio"]:first-of-type { margin-left: 0; }
+#forums #content form.search_form label { margin-right: 4px; }
+#forums #content form.search_form input[type="submit"] { padding: 7px 22px; }
 
 .xdsoft_datetimepicker {
   background: var(--surface) !important;
