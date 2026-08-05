@@ -1,17 +1,8 @@
-/* ==========================================================================
-   GENAVIV REFRESHED — a modern dark theme for RED
-   Single-file successor to gold-main.css (gold + geometry + dark + red)
-   Genaviv theme by geekmaster1, edited by exa · Refreshed edition by Claude Fable 5
-   ========================================================================== */
-
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:wght@400;500&display=swap');
 
-/* --------------------------------------------------------------------------
-   1. Design tokens
-   -------------------------------------------------------------------------- */
 :root {
-  /* surfaces — neutral charcoal with a whisper of warmth */
+
   --bg: #181817;
   --bg-deep: #101010;
   --surface: #1f1f1e;
@@ -19,25 +10,21 @@
   --surface-3: #2f2f2e;
   --overlay: rgba(16, 16, 16, 0.72);
 
-  /* text */
   --text: #c7c5c0;
   --text-bright: #f2f1ee;
   --text-dim: #8b8985;
   --text-faint: #5d5b57;
 
-  /* accents: soft sand for links, Redacted red for emphasis */
   --gold: #c9b58e;
   --gold-bright: #eadfc5;
   --clay: #d9484e;
   --clay-bright: #f2686d;
 
-  /* semantics */
   --good: #7fb885;
   --warn: #e0b45c;
   --bad: #d16a5a;
   --info: #7fa8c9;
 
-  /* chrome */
   --border: #2d2d2c;
   --border-strong: #41413f;
   --radius: 10px;
@@ -46,9 +33,9 @@
   --shadow-pop: 0 4px 12px rgba(0,0,0,.35), 0 16px 40px -16px rgba(0,0,0,.6);
 
   --font-body: 'DM Sans', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  /* prose (forum posts, comments) keeps Outfit's rounder, airier read */
+
   --font-prose: 'Outfit', 'DM Sans', 'Segoe UI', system-ui, sans-serif;
-  /* display is reserved for card heads and edition bands */
+
   --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-logo: 'Lora', Georgia, serif;
   --font-mono: 'Roboto Mono', 'JetBrains Mono', ui-monospace, monospace;
@@ -56,9 +43,6 @@
   --ease: cubic-bezier(.25,.5,.25,1);
 }
 
-/* --------------------------------------------------------------------------
-   2. Reset & base
-   -------------------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { padding: 0; margin: 0; }
 
@@ -87,7 +71,7 @@ h1, h2, h3, h4 { margin: 0; color: var(--text-bright); }
 body h1, body h2, body h3, body h4 { padding: 5px 0; }
 h2 { font-size: 1.05rem; }
 h2, h3 { text-align: center; font-weight: 600; letter-spacing: .01em; }
-/* page titles: body face, sized up */
+
 .thin > h2, .header > h2, #content > h2, .thin > h3 {
   font-family: var(--font-body);
   font-size: 1.3rem; font-weight: 600; letter-spacing: -.01em;
@@ -106,9 +90,6 @@ a:hover, a.simple-tabs__link:hover, #wrapper .alert-bars a:hover { color: var(--
 a img { transition: opacity .25s var(--ease), transform .25s var(--ease); transform: translateZ(0); }
 a:hover img { opacity: .8; }
 
-/* --------------------------------------------------------------------------
-   3. Layout shell
-   -------------------------------------------------------------------------- */
 #content { margin: 0 auto; padding: 0 12px; }
 @media (min-width: 544px)  { #content { max-width: 600px; } }
 @media (min-width: 768px)  { #content { max-width: 740px; } }
@@ -132,17 +113,13 @@ div, table, tr, td { border-collapse: collapse; }
 #footer { text-align: center; padding: 28px 0 40px; color: var(--text-faint); font-size: .78rem; }
 #footer a { color: var(--text-dim); }
 #footer a:hover { color: var(--gold); }
-div#footer > p:first-child::after { content: " | Genaviv Refreshed theme — geekmaster1 · exa · Claude Fable 5"; }
+div#footer > p:first-child::after { content: " | Genaviv Refreshed theme - sarek, exa, darisk"; }
 
 .hidden, div#quickreplytext br { display: none; }
 .hidden { position: absolute; left: -10000px; }
 .center, #inbox form#messageform[name="reply"] div.box.pad,
 #inbox .thin form#messageform[name="message"] div.box.pad { text-align: center; }
 
-/* --------------------------------------------------------------------------
-   4. Top menu
-   -------------------------------------------------------------------------- */
-/* floating island nav */
 #menu, .main-menu {
   position: fixed;
   top: 10px; left: 50%;
@@ -184,9 +161,6 @@ div#quickreplytext::after, #inbox form.send_form #quickpost::after { content: " 
 #header li { display: inline-block; }
 ul.navigation li { display: inline-block !important; }
 
-/* --------------------------------------------------------------------------
-   5. Header, userinfo, search
-   -------------------------------------------------------------------------- */
 #header {
   background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 100%);
   background-size: cover; background-repeat: no-repeat; background-position: center center;
@@ -195,7 +169,6 @@ ul.navigation li { display: inline-block !important; }
 }
 header { background: initial; }
 
-/* CSS wordmark — spaced uppercase, no image dependency */
 div#logo { width: 420px; height: 70px; margin: 0 auto; }
 div#logo a { display: block; width: 420px; height: 70px; margin: 0 auto; }
 #header #logo { margin-top: 10px; margin-bottom: 10px; }
@@ -227,14 +200,13 @@ ul#userinfo_major, ul#userinfo_stats {
   display: inline !important; vertical-align: middle; text-align: center;
 }
 ul#userinfo_major > li, ul#userinfo_stats > li { padding: 0 7px; }
-/* stats read as label:dim / value:bright */
+
 ul#userinfo_stats > li { color: var(--text-faint); font-size: .82rem; }
 ul#userinfo_stats > li a { color: var(--text-dim); }
 ul#userinfo_stats > li a:hover { color: var(--text-bright); }
 ul#userinfo_stats .stat { color: var(--text-bright); }
 ul#userinfo_major > li { font-size: .86rem; }
 
-/* account chip pinned top-right, out of the way of the search row */
 ul#userinfo_username {
   position: fixed; top: 10px; right: 16px; z-index: 1500;
   display: inline-flex !important; align-items: center;
@@ -255,8 +227,6 @@ ul#userinfo_username > li > a {
 ul#userinfo_username > li > a:hover { background: rgba(255, 255, 255, 0.07); }
 #userinfo .brackets::before, #userinfo .brackets::after { display: none; }
 
-/* secondary user links: hover dropdown under the username —
-   the native Gazelle pattern (cf. layout.css li#nav_userinfo:hover ul) */
 li#nav_userinfo > a.username::after {
   content: " \f0d7";
   font-family: FontAwesome;
@@ -277,25 +247,24 @@ ul#userinfo_minor {
   visibility: hidden; opacity: 0;
   transition: opacity .18s var(--ease) .3s, visibility .18s .3s, transform .18s var(--ease) .3s;
 }
-/* invisible strip over the trigger→panel gap so the pointer can cross */
+
 ul#userinfo_minor::before {
   content: ""; position: absolute;
   top: -14px; left: 0; right: 0; height: 14px;
 }
-/* precise trigger for modern browsers; slight delay filters drive-by hovers */
+
 div#userinfo:has(#nav_userinfo:hover) ul#userinfo_minor {
   visibility: visible; opacity: 1;
   transform: translateY(0);
   transition-delay: .12s;
 }
-/* keep-open while hovering the panel */
+
 ul#userinfo_minor:hover {
   visibility: visible; opacity: 1;
   transform: translateY(0);
   transition-delay: 0s;
 }
-/* whole-chip fallback trigger ONLY for browsers without :has() —
-   elsewhere it would open the panel when aiming at Settings/Logout */
+
 @supports not selector(:has(a)) {
   ul#userinfo_username:hover ~ ul#userinfo_minor {
     visibility: visible; opacity: 1;
@@ -340,16 +309,23 @@ div.search-bar ul li:first-of-type form::before {
 #header form.search_form { width: inherit !important; margin: 0 auto; }
 
 div#alerts { width: 100%; }
+
+div#alerts { text-align: center; padding: 6px 0 2px; }
 .alertbar {
-  text-align: center; padding: 8px;
-  background: color-mix(in srgb, var(--clay) 12%, var(--surface));
-  border-top: 1px solid var(--border);
+  display: inline-block;
+  padding: 6px 16px;
+  background: color-mix(in srgb, var(--clay) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--clay) 34%, var(--border));
+  border-radius: 999px;
+  font-size: .82rem;
+  text-align: center;
+  transition: background .2s var(--ease), border-color .2s var(--ease);
 }
+.alertbar:hover { background: color-mix(in srgb, var(--clay) 22%, var(--surface)); }
+#header .alertbar a { color: var(--clay-bright); }
+#header .alertbar a:hover { color: var(--text-bright); }
 .alert-bar { border-top: 1px solid var(--border); }
 
-/* --------------------------------------------------------------------------
-   6. Boxes / cards / panels
-   -------------------------------------------------------------------------- */
 .box::before, .box::after { content: " "; display: table; }
 
 td, form.search_form, .box.pad, #blog .box, .box.thin.clear { background: var(--surface); }
@@ -377,7 +353,6 @@ div#quickreplytext, div#ft_container, div.pad#threadpoll { background: var(--sur
 #staff .box.pad { background: transparent !important; }
 .filter_torrents .box.pad.center { background: transparent; }
 
-/* headings inside cards */
 .toggleable-search-form__toggler-container, thead th, .panel__heading,
 .box.filter_torrents .head, .colhead td, .forum-post__heading, .colhead_dark td,
 tr.colhead, tr.colhead_dark, #inbox .box .head, #reply_box h3,
@@ -422,9 +397,6 @@ div#covers > div:first-of-type { margin-top: -6px; }
 #user .sidebar div[align="center"] { min-width: 100%; padding: 0 !important; margin: -8px -12px -12px; }
 #content .thin div[style="height:140px;"] { height: auto !important; background-color: var(--surface); }
 
-/* --------------------------------------------------------------------------
-   7. Tables
-   -------------------------------------------------------------------------- */
 table { width: 100%; }
 td { border-bottom: 1px solid var(--border); padding: 6px 8px; }
 .group td { background: var(--surface-2); }
@@ -433,18 +405,13 @@ td.nobr { white-space: nowrap; }
 td.left { text-align: right; }
 td.label { max-width: 150px; width: 150px; text-align: right; vertical-align: middle; }
 .min_padding, #content td.avatar { padding: 0; }
-/* Titles must read identically in every listing. These were id-scoped
-   to #torrent_table — i.e. browse only — so titles rendered medium
-   there and full bold on Top 10, artist and collage pages. */
+
 table.torrent_table strong { color: var(--text-bright); }
 table.torrent_table b, table.torrent_table strong,
 .group_torrent b, .group_torrent strong { font-weight: 450; }
-/* Listing titles sit a half-step below body text. The weight has to
-   live on the container: browse leaves its titles as bare links and
-   text, while Top 10 wraps them in <strong> — so a strong-based rule
-   styles one page and silently skips the other. */
+
 table.torrent_table td.big_info .group_info { font-size: 13.5px; font-weight: 450; }
-/* the row's ancillary bits stay at normal weight */
+
 table.torrent_table td.big_info .group_info .tags a,
 table.torrent_table td.big_info .group_info .add_bookmark a,
 table.torrent_table td.big_info .group_info .torrent_action_buttons a,
@@ -452,8 +419,7 @@ table.torrent_table td.big_info .group_info .votespan,
 table.torrent_table td.big_info .group_info .vote_album,
 table.torrent_table td.big_info .group_info .time { font-weight: 400; }
 .torrent_row, .group_torrent { font-size: .8rem; }
-/* float only the intended right-side clusters, not every span —
-   the blanket float dragged script-injected spans across the row */
+
 .torrent_row .torrent_action_buttons, .group_torrent .torrent_action_buttons,
 .torrent_row .time, .group_torrent .time,
 .torrent_row .votespan, .group_torrent .votespan,
@@ -472,8 +438,6 @@ tr.pad[id*="torrent_"], .torrentdetails, .torrent_info_row {
   font-size: 12.5px;
 }
 
-/* edition headers on torrent-group pages: distinct band so release
-   types read at a glance */
 tr.edition.group_torrent > td {
   background: var(--surface-3);
   border-top: 1px solid var(--border-strong);
@@ -488,8 +452,6 @@ tr.edition.group_torrent > td {
 tr.edition.group_torrent > td a { color: var(--text); }
 tr.edition.group_torrent > td a:hover { color: var(--gold-bright); }
 
-/* artist page: release-type headers (EPs / Singles / …) are plain
-   colhead_dark rows — give them the same distinct band */
 #artist table.torrent_table tr.colhead_dark > td {
   background: var(--surface-3);
   border-top: 1px solid var(--border-strong);
@@ -508,8 +470,7 @@ tr.pad[id*="torrent_"] ul, tr.pad[id*="torrent_"] h3 { text-align: center; }
 .torrent_table blockquote { margin: inherit; }
 
 table.forum_index, .forum_list h3 { margin-bottom: 4px; }
-/* the site's global.css centers forum cells; floated last-read/last-poster
-   spans then squeeze titles into ragged centered positions — align left */
+
 table.forum_index td, table.forum_list td { text-align: left; font-size: .845rem; }
 table.forum_index td.number_column, table.forum_list td.number_column { text-align: right; }
 table.forum_index td.center, table.forum_list td.center { text-align: center; }
@@ -517,9 +478,7 @@ table.forum_index td.center, table.forum_list td.center { text-align: center; }
 table#collages, table.collage_table, table.vote_matches_table { width: 100%; }
 table.layout { width: 100%; }
 table.layout, table.layout.border, div#ft_container { font-size: 12.5px; margin: 0 auto; }
-/* The filter form is four sibling tables: the field rows, then three
-   `cat_list` tables (categories, tag grid, random links). Align the
-   field rows on a shared axis; leave the cat_list tables centered. */
+
 .filter_torrents table.layout { width: 100%; margin: 0; }
 .filter_torrents table.layout td { vertical-align: middle; white-space: nowrap; }
 .filter_torrents table.layout:not(.cat_list) td.label {
@@ -529,20 +488,15 @@ table.layout, table.layout.border, div#ft_container { font-size: 12.5px; margin:
 .filter_torrents table.layout:not(.cat_list) td:not(.label) { text-align: left; }
 .filter_torrents table.layout input[type="search"],
 .filter_torrents table.layout input[type="text"] { width: 340px; max-width: 100%; }
-/* centered clusters: categories, tag grid, random links / view tags.
-   These tables must shrink to their content — at 100% width each cell
-   takes an equal slice and the items drift to the page edges. */
+
 .filter_torrents table.cat_list { width: auto; margin: 0 auto; }
 .filter_torrents table.cat_list td {
-  /* max-width must be released too: td.label is clamped to 150px, so
-     wider cell content overflows and collides once the table shrinks */
+
   width: auto; max-width: none; text-align: left; white-space: nowrap; padding: 4px 12px;
 }
 .filter_torrents table.cat_list td.random_links { padding-right: 4px; }
 .filter_torrents table.cat_list td.random_links a { margin-right: 14px; }
-/* submit strip: count then buttons, both left — the count is floated in
-   the markup, so text-align would centre the buttons in the leftover
-   space rather than in the box */
+
 .filter_torrents .submit {
   display: flex; align-items: center; gap: 28px;
   padding: 12px 0 4px; margin-top: 4px;
@@ -551,24 +505,18 @@ table.layout, table.layout.border, div#ft_container { font-size: 12.5px; margin:
 .filter_torrents .submit span[style*="float"] {
   float: none !important; font-size: .8rem; color: var(--text-faint);
 }
-/* a pathological unbroken string must never widen the name column */
+
 table.torrent_table td.big_info, table.torrent_table td[width="100%"] { overflow-wrap: anywhere; }
 
-/* --- typography of the data layer ------------------------------------ */
-/* format strings sit a notch below the surrounding text */
 #torrents table.torrent_table td a[onclick*="gtoggle"] { font-size: .82rem; }
-/* sizes, snatch/seed/leech counts: mono so digits line up column-wise */
+
 table.torrent_table td.number_column {
   font-family: var(--font-mono);
-  /* mono figures read optically larger than the sans beside them, so
-     they sit a half-step below the 13.5px titles */
+
   font-size: 12.2px;
   font-variant-numeric: tabular-nums;
 }
-/* NOTE: track durations are not separately marked up — they are just
-   italic spans an uploader typed, indistinguishable from any other
-   emphasis in a description. Restyling them would hijack uploader
-   formatting, so descriptions are left exactly as written. */
+
 table.layout.border { border-collapse: separate; }
 table.layout.cat_list.ft_cat_list, table.layout.cat_list { text-align: center; }
 table.cat_list, tr#edition_expand { text-align: center; }
@@ -576,7 +524,6 @@ tr.cat_list { text-align: center; }
 #forums table.cat_list { text-align: inherit; }
 td.ft_cataloguenumber, td.ft_remastertitle { width: 33.3%; max-width: 33.3%; }
 
-/* zebra hover for data rows */
 #torrent_table tr:hover > td,
 .forum_index tr:hover > td,
 table.torrent_table tr.torrent:hover > td {
@@ -594,15 +541,11 @@ table.torrent_table tr.group_torrent a[onclick*=toggle] { color: var(--good); }
 td[colspan="3"] a[href*="torrents.php?id"]:hover, .torrent_row a[onclick*=toggle]:hover,
 .torrent_row.group_torrent.discog a[href*="torrents.php?id="]:hover,
 table.torrent_table tr.group_torrent a[onclick*=toggle]:hover { color: var(--gold-bright); }
-/* grouped rows used to render their album links blue while ungrouped
-   rows on the same page — and every other listing — used gold */
+
 tr.group td[colspan="2"] a[href*="torrents.php?id"]:hover { color: var(--gold-bright); }
 a[onclick*=toggle] { font-weight: initial !important; }
 a[onclick]:focus { outline: 0; background: transparent; }
 
-/* --------------------------------------------------------------------------
-   8. Forums & posts
-   -------------------------------------------------------------------------- */
 .forum_post, table.message_table.checkboxes { width: 100%; }
 .forum_post { margin-bottom: 24px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 .forum_post:last-of-type, .forum_post:last-child { margin-bottom: 0; }
@@ -639,8 +582,6 @@ blockquote {
 }
 blockquote div[style="margin:20px; margin-top:5px"] { margin: 5px 0 0 !important; }
 
-/* unread/read state glyphs */
-/* jump-to-last-read arrow: inline after the title (site inline-floats it left) */
 span.last_read { float: none !important; display: inline; margin-left: 7px; }
 span.last_read a::before { content: "\f061"; font-family: FontAwesome; line-height: 31px; color: var(--text-faint); transition: color .2s var(--ease); }
 span.last_read a:hover::before { color: var(--clay); }
@@ -676,18 +617,12 @@ ul.poll.nobullet li { display: block; clear: both; }
 .poll .graph .left_poll, .poll .graph .right_poll { width: 0; background: none; }
 .poll .graph .center_poll { background: var(--clay); }
 
-/* --------------------------------------------------------------------------
-   9. Forms & buttons
-   -------------------------------------------------------------------------- */
 input, input[type="search"], form textarea, form input, select, button, textarea, keygen { border: none; }
 input:not([type="checkbox"]):not([type="radio"]), textarea[name="body"] { padding: 5px 8px; }
 textarea, input:not([type="checkbox"]):not([type="radio"]) {
   background-color: var(--surface-3); color: var(--text); border-radius: var(--radius-sm);
 }
 
-/* Checkboxes/radios: locked geometry. Any hover rule that grows them
-   shifts them out from under the cursor, which un-hovers and shrinks
-   them again — an endless flicker loop. Nothing here reacts to hover. */
 input[type="checkbox"], input[type="radio"] {
   accent-color: var(--clay);
   width: 14px; height: 14px;
@@ -750,7 +685,7 @@ form.create_form { text-align: center; }
 form.create_form table { display: inline-block; }
 #upload form { text-align: left; }
 
-input[type="submit"], input[type="button"] {
+input[type="submit"], input[type="button"], button:not(.xdsoft_prev):not(.xdsoft_next) {
   padding: 6px 16px; margin: 2px; cursor: pointer;
   background: var(--surface-3); color: var(--text-bright);
   border: 1px solid var(--border-strong) !important;
@@ -759,7 +694,9 @@ input[type="submit"], input[type="button"] {
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
 input[type="submit"]:hover, input[type="submit"]:focus,
-input[type="button"]:hover, input[type="button"]:focus {
+input[type="button"]:hover, input[type="button"]:focus,
+button:not(.xdsoft_prev):not(.xdsoft_next):hover,
+button:not(.xdsoft_prev):not(.xdsoft_next):focus {
   background: var(--clay); color: #fff; border-color: var(--clay) !important;
 }
 form.search_form input[type="submit"], form.search_form input[type="button"] { color: var(--text-bright); cursor: pointer; }
@@ -770,9 +707,6 @@ form.search_form input[type="submit"]:hover, form.search_form input[type="button
 .submit span[style="float:left;"] { display: inline; float: none !important; font-size: 12px; }
 .filter_torrents div.submit input { display: inline; margin: 5px 0; }
 
-/* --------------------------------------------------------------------------
-   10. Tags, pills, pagination, tabs
-   -------------------------------------------------------------------------- */
 #taglist tr td a, .huge-movie-list__movie__tag-list a, .movie-tooltip__tag,
 a.basic-movie-list__movie__tag, .tags a,
 ul.stats.nobullet li a[href*="torrents.php?taglist="], a.cover-movie-list__movie__tag {
@@ -789,11 +723,11 @@ a.cover-movie-list__movie__tag:focus, #taglist tr td a:focus, .tags a:hover,
 .tags a:focus, .movie-tooltip__tag:hover {
   background: var(--clay); color: #fff;
 }
-/* sidebar stats lists: plain readable links, roomier rows */
+
 .sidebar ul.stats.nobullet li { padding: 2.5px 0; line-height: 1.5; }
 .sidebar .stats.nobullet a { color: var(--gold); }
 .sidebar .stats.nobullet a:hover, .sidebar .stats.nobullet a:focus { color: var(--gold-bright); }
-/* hide the literal ", " text nodes between tag pills */
+
 .tags { font-size: 0; }
 .tags a { font-size: .72rem; }
 #taglist tr td { border: none; }
@@ -814,18 +748,16 @@ ul.stats.nobullet li { display: block; }
 .forum_list h3, .pagination.pagination--top, .pagination.pagination--bottom { padding: 6px; }
 .linkbox.pager a, .linkbox a strong { color: var(--text-bright); }
 .linkbox.pager a:hover, .linkbox a strong:hover, .linkbox.pager a strong:hover { color: var(--gold); }
-/* current page (bare <strong>, not a link) stands out in red */
+
 .linkbox strong, .pagination strong { color: var(--clay-bright); }
 .linkbox a strong, .pagination a strong { color: var(--text-bright); }
 
-/* post headings: quiet post-number/action links so the username carries */
 .forum_post .colhead_dark td > a { color: var(--text-dim); }
 .forum_post .colhead_dark td > a:hover { color: var(--text-bright); }
 .linkbox a.brackets { display: inline-block; padding-bottom: 5px; }
 .movie-tooltip__title-row, .movie-tooltip__tags, .movie-tooltip__ratings,
 .movie-tooltip__director-list, .movie-tooltip__trailer, .movie-tooltip__synopsis { padding-bottom: 5px; }
 
-/* tabs */
 a.tabs__bar__link { background: var(--surface); color: var(--text-dim); border-color: var(--border) !important; }
 .tabs__bar__list { background: var(--surface-2); border-color: var(--border); }
 a.tabs__bar__link:hover { background: var(--surface-2); color: var(--text-bright); }
@@ -848,13 +780,44 @@ div.ui-tabs-vertical .ui-tabs-nav li.ui-state-default { background: var(--surfac
 .ui-widget-content a { color: var(--text-bright) !important; }
 .ui-widget-content a:hover { color: var(--gold) !important; }
 
-/* --------------------------------------------------------------------------
-   11. Popups, tooltips, notifications
-   -------------------------------------------------------------------------- */
-.qtip-content, .qtip-content:hover {
-  background: var(--overlay);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  padding: 10px; border-radius: var(--radius-sm);
+.tooltipster-sidetip .tooltipster-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop);
+}
+.tooltipster-sidetip .tooltipster-content {
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: .8rem;
+  line-height: 1.45;
+  padding: 7px 12px;
+}
+.tooltipster-sidetip .tooltipster-content b,
+.tooltipster-sidetip .tooltipster-content strong { color: var(--text-bright); font-weight: 500; }
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background { border-top-color: var(--surface-2); }
+.tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-background { border-bottom-color: var(--surface-2); }
+.tooltipster-sidetip.tooltipster-left .tooltipster-arrow-background { border-left-color: var(--surface-2); }
+.tooltipster-sidetip.tooltipster-right .tooltipster-arrow-background { border-right-color: var(--surface-2); }
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border { border-top-color: var(--border-strong); }
+.tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-border { border-bottom-color: var(--border-strong); }
+.tooltipster-sidetip.tooltipster-left .tooltipster-arrow-border { border-left-color: var(--border-strong); }
+.tooltipster-sidetip.tooltipster-right .tooltipster-arrow-border { border-right-color: var(--border-strong); }
+
+pre[class*="language-"], code[class*="language-"] {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  text-shadow: none;
+}
+pre[class*="language-"] {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+:not(pre) > code[class*="language-"] {
+  background: var(--surface-3);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
 }
 .autocomplete-suggestion { padding: 6px 8px; }
 .autocomplete-suggestions {
@@ -868,7 +831,6 @@ div.ui-tabs-vertical .ui-tabs-nav li.ui-state-default { background: var(--surfac
 ul#torrentscomplete li a, ul#artistcomplete li a { padding: 4px 6px; }
 .search-bar__results a { border-bottom: 1px solid var(--border); }
 
-/* autocomplete: neutral suggestions, red matched substring */
 .autocomplete-suggestions, .autocomplete-suggestion a,
 ul#torrentscomplete li a, ul#artistcomplete li a, .search-bar__results a { color: var(--text); }
 .autocomplete-suggestions strong, .search-bar__results strong {
@@ -876,11 +838,41 @@ ul#torrentscomplete li a, ul#artistcomplete li a, .search-bar__results a { color
 }
 .autocomplete-selected, .autocomplete-selected a { color: var(--text-bright); }
 
-.noty_message, ul#noty_bottomRight_layout_container li, .noty_buttons {
-  background: var(--surface) !important; color: var(--text) !important;
-  border: none !important; border-radius: var(--radius-sm) !important;
+ul#noty_bottomRight_layout_container {
+  top: 58px !important;
+  bottom: auto !important;
+  right: 16px !important;
+  width: 300px !important;
 }
-div.noty_bar { border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; }
+ul#noty_bottomRight_layout_container li {
+  background: var(--surface) !important;
+  background-image: none !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-left: 3px solid var(--clay) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-pop) !important;
+  margin-top: 8px !important;
+}
+.noty_message, .noty_buttons {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: none !important;
+}
+.noty_message { padding: 10px 13px !important; font-size: 13px !important; }
+.noty_text { color: var(--text-bright); }
+.noty_buttons {
+  padding: 4px 10px 9px !important;
+  border-top: 1px solid var(--border) !important;
+  margin-top: 2px;
+}
+.noty_buttons a {
+  font-size: .78rem; padding: 3px 10px; border-radius: 999px;
+  color: var(--text-dim); transition: background .2s var(--ease), color .2s var(--ease);
+}
+.noty_buttons a:hover { background: rgba(255,255,255,.07); color: var(--text-bright); }
+.noty_buttons a.noty_button_view { color: var(--clay-bright); }
+div.noty_bar { border: none; border-radius: var(--radius); overflow: hidden; }
 
 .lightbox { position: fixed; text-align: center; top: 5%; left: 5%; width: 90%; height: 90%; overflow: auto; z-index: 2001; }
 .lightbox img { max-width: 100%; max-height: 100%; z-index: -1; background-color: transparent; }
@@ -891,9 +883,6 @@ div#Bbcode_Toolbar, .bbcode-toolbar__button { background: var(--surface-3); }
 .bbcode-toolbar__button:hover { background-color: var(--border-strong); }
 #quickreplytext div.bbcode-btntoolbar { text-align: center; }
 
-/* --------------------------------------------------------------------------
-   12. Index page specifics
-   -------------------------------------------------------------------------- */
 div#last5 {
   width: calc(20% - 4px) !important; margin: 0 4px 0 0 !important; padding: 0 !important;
   display: block !important; float: left !important; text-align: center;
@@ -912,9 +901,6 @@ div#latest5normal::after, div#latest5internals::after, div#latest5userreleases::
 .of_the_month > .box ul.stats.nobullet li { padding-right: 12px; padding-left: 12px; }
 .of_the_month > .box ul.stats.nobullet li:first-child { padding: 0; }
 
-/* --------------------------------------------------------------------------
-   13. Collages, covers, artist pages
-   -------------------------------------------------------------------------- */
 .collage tr td, .collage tr td:first-of-type, .collage tr td:first-child,
 .collage tr td:last-of-type, .collage tr td:last-child { display: inline-block; }
 .collage a[href*="torrents.php?id"] img { max-width: 128px; border-radius: var(--radius-sm); }
@@ -954,14 +940,10 @@ input[type="submit"], input[type="button"], a.huge-movie-list__movie__title,
 a.huge-movie-list__movie__director { color: var(--text-bright); }
 #torrents a.huge-movie-list__movie__title:hover, #torrents a.huge-movie-list__movie__director:hover { color: var(--gold); }
 
-/* --------------------------------------------------------------------------
-   14. Misc structural retentions
-   -------------------------------------------------------------------------- */
 body#actorshowcase #content table { display: inline-block; width: 24.7%; text-align: center; margin: 0 0 7px; vertical-align: top; }
 body#actorshowcase #content table tbody { display: inline-block; text-align: initial; }
 body#actorshowcase #content table:first-of-type { display: none; }
-/* forum search: the checkbox grid is a real table — inline-block cells
-   collapsed it into a ragged flow with stray cell borders showing */
+
 table#forum_search_cat_list {
   width: 100%; text-align: left;
   border-collapse: separate; border-spacing: 0 3px;
@@ -970,34 +952,92 @@ table#forum_search_cat_list tr td {
   display: table-cell; vertical-align: middle; text-align: left;
   border: none; padding: 3px 14px 3px 0; white-space: nowrap;
 }
-/* category rows become bands, with Check all pushed to the right */
+
 table#forum_search_cat_list td.forum_cat {
+  background: transparent;
+  padding: 12px 0 3px;
+}
+table#forum_search_cat_list td.forum_cat strong {
+  display: inline-block;
   background: var(--surface-3);
   border-radius: var(--radius-sm);
-  padding: 7px 12px;
+  padding: 5px 12px;
   font-family: var(--font-display);
   font-size: .72rem; font-weight: 600; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--text-dim);
+  text-transform: uppercase; color: var(--text-bright);
 }
-table#forum_search_cat_list td.forum_cat strong { color: var(--text-bright); font-weight: 600; }
 table#forum_search_cat_list td.forum_cat a.forum_category {
-  float: right; text-transform: none; letter-spacing: 0; font-size: .76rem;
+  margin-left: 10px;
+  font-size: .76rem;
+  color: var(--gold);
 }
-/* the search form's label column, so "Forums:" sits atop its grid */
+table#forum_search_cat_list td.forum_cat a.forum_category:hover { color: var(--gold-bright); }
+
 #forums form.search_form > table.layout > tbody > tr > td:first-child {
   width: 17%; text-align: right; padding-right: 14px;
   vertical-align: top; color: var(--text-dim);
 }
 #forums form.search_form > table.layout > tbody > tr > td:first-child strong { font-weight: 500; }
-#forums form.search_form input.date_picker { width: 150px; }
+
+#forums form.search_form input[type="search"],
+#forums form.search_form input[type="text"]:not(.date_picker) {
+  width: 420px; max-width: 100%;
+}
+#forums form.search_form input.date_picker { width: 132px; text-align: center; }
+#forums form.search_form td > input[type="radio"] { margin-left: 14px; }
+#forums form.search_form td > input[type="radio"]:first-of-type { margin-left: 0; }
+#forums form.search_form label { margin-right: 4px; }
+#forums form.search_form input[type="submit"] { padding: 7px 22px; }
+
+.xdsoft_datetimepicker {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-pop) !important;
+  color: var(--text);
+  padding: 6px !important;
+}
+.xdsoft_datetimepicker * { font-family: var(--font-body) !important; }
+.xdsoft_datetimepicker .xdsoft_calendar td,
+.xdsoft_datetimepicker .xdsoft_calendar th {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  font-size: 12px !important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar th {
+  background: var(--surface-3) !important; color: var(--text-dim) !important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td:hover,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  background: var(--clay) !important; color: #fff !important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+  background: var(--clay) !important; color: #fff !important;
+  box-shadow: none !important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_today { color: var(--gold-bright) !important; }
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_other_month,
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_disabled { color: var(--text-faint) !important; opacity: 1; }
+.xdsoft_datetimepicker .xdsoft_label,
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select,
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option {
+  background: var(--surface-2) !important; color: var(--text) !important;
+}
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select { border: 1px solid var(--border-strong) !important; }
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover,
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
+  background: var(--clay) !important; color: #fff !important;
+}
+.xdsoft_datetimepicker .xdsoft_time_box { border: 1px solid var(--border) !important; }
+.xdsoft_datetimepicker .xdsoft_copyright, .xdsoft_datetimepicker .xdsoft_copyright a { display: none !important; }
+.xdsoft_scrollbar > .xdsoft_scroller { background: var(--border-strong) !important; }
 #content li { list-style-type: inherit; list-style-position: inside; }
 #rules #content li { display: list-item; }
 table#torrent_details li, .forum_post li, .news_post .pad li { display: list-item; }
 #wiki .main_column .box li, #wiki .main-column .box li { display: block; }
 
-/* wiki articles carry three heading levels with almost no visual
-   distance between them: h3 becomes a section band, h4 a ruled
-   subsection, so the outline is readable while scrolling */
 .wiki_article h3 {
   text-align: left;
   font-family: var(--font-body);
@@ -1018,7 +1058,7 @@ table#torrent_details li, .forum_post li, .news_post .pad li { display: list-ite
   padding: 0 0 5px;
   border-bottom: 1px solid var(--border);
 }
-/* the size5 wrapper around section headings would blow them up */
+
 .wiki_article span[class*="size"] > h3 { font-size: 1.1rem; }
 .big_info .group_info.clear .torrent_action_buttons,
 .big_info .group_info.clear .add_bookmark,
@@ -1028,18 +1068,13 @@ table#torrent_details li, .forum_post li, .news_post .pad li { display: list-ite
 #request_table .rowb td:first-of-type > a:nth-child(2n),
 #request_table .rowa td > a:nth-child(2n) { color: var(--gold); }
 .group_info > a:nth-child(2n):hover, .group_info > a:nth-child(3n):hover { color: var(--gold-bright); }
-/* Top 10 rows carry the format string inline with the title as a bare
-   text node — it cannot be selected. Mute the container and restore
-   everything that IS wrapped, leaving only the format de-emphasized.
-   Kept on one line: breaking it stranded the leading "- " and fell
-   apart on non-music uploads (software, books) whose bracket content
-   differs. */
+
 #top10 td.big_info .group_info { color: var(--text-faint); font-size: .76rem; }
 #top10 td.big_info .group_info > strong:not(.torrent_label) {
   color: var(--text-bright);
   font-size: 13.5px;
 }
-/* the right-side clusters ran together as "BookmarkDL | FL" */
+
 #top10 td.big_info .group_info .torrent_action_buttons { margin-left: 10px; }
 #top10 td.big_info .group_info .tags a { color: var(--text-dim); }
 #top10 td.big_info .group_info .add_bookmark a,
@@ -1050,7 +1085,7 @@ table#torrent_details li, .forum_post li, .news_post .pad li { display: list-ite
 a[rel="noreferrer"] img[style="max-width: 500px;"] { max-width: 32.86%; margin: 0; border-radius: var(--radius-sm); }
 #forums a[rel="noreferrer"] img[style="max-width: 500px;"] { width: inherit; }
 #torrents a[rel="noreferrer"] img[style="max-width: 500px;"] { max-width: 32.673%; }
-/* group collapse/expand toggles — FontAwesome glyphs, no image dependency */
+
 .show_torrents_link { border: none; width: 28px; height: 28px; display: block; }
 .hide_torrents, .show_torrents { width: 28px; height: 28px; opacity: 1; background: none; }
 .show_torrents .show_torrents_link::before,
@@ -1060,22 +1095,20 @@ a[rel="noreferrer"] img[style="max-width: 500px;"] { max-width: 32.86%; margin: 
   color: var(--text-faint);
   transition: color .2s var(--ease);
 }
-.show_torrents .show_torrents_link::before { content: "\f0fe"; } /* plus-square: expand */
-.hide_torrents .show_torrents_link::before { content: "\f146"; } /* minus-square: collapse */
+.show_torrents .show_torrents_link::before { content: "\f0fe"; }
+.hide_torrents .show_torrents_link::before { content: "\f146"; }
 .show_torrents .show_torrents_link:hover::before,
 .hide_torrents .show_torrents_link:hover::before { color: var(--gold); }
 
-/* snatches / seeders / leechers column headers — replace stylesheet images */
 td.sign img { display: none; }
 td.sign a::before, td.sign:not(:has(a))::before {
   font-family: FontAwesome; font-size: 14px;
   display: inline-block; width: 16px; text-align: center;
 }
-/* icons live on the sort link when there is one (torrents.php),
-   else on the cell itself (artist.php has no sort links) */
-td.sign.snatches a::before, td.sign.snatches:not(:has(a))::before { content: "\f019"; color: var(--text-dim); }  /* download */
-td.sign.seeders a::before,  td.sign.seeders:not(:has(a))::before  { content: "\f062"; color: var(--good); }      /* arrow-up */
-td.sign.leechers a::before, td.sign.leechers:not(:has(a))::before { content: "\f063"; color: var(--bad); }       /* arrow-down */
+
+td.sign.snatches a::before, td.sign.snatches:not(:has(a))::before { content: "\f019"; color: var(--text-dim); }
+td.sign.seeders a::before,  td.sign.seeders:not(:has(a))::before  { content: "\f062"; color: var(--good); }
+td.sign.leechers a::before, td.sign.leechers:not(:has(a))::before { content: "\f063"; color: var(--bad); }
 td.sign a:hover::before { color: var(--gold); }
 #content .sidebar ul.nobullet h2 { text-align: inherit !important; }
 .toggleable-search-form__toggler-container, #blog .pad, #index .main_column .box,
@@ -1092,12 +1125,9 @@ span.movie-tooltip__rating__title, span.movie-tooltip__rating__title a { color: 
 a.tabs__bar__link:hover, span.movie-tooltip__rating__title:hover,
 span.movie-tooltip__rating__title a:hover { background: var(--surface-3) !important; }
 
-/* --------------------------------------------------------------------------
-   15. Functional colors — inline-style recolors
-   -------------------------------------------------------------------------- */
 span[style="color: red;"], strong.important_text, strong[style="color: red;"],
 table.torrent_table strong.tl_reported { color: var(--bad) !important; }
-/* status labels: explicit colors on any torrent table markup */
+
 .torrent_table strong.tl_notice { color: var(--good) !important; }
 .torrent_table strong.tl_free { color: var(--info) !important; }
 .torrent_table strong.tl_snatched { color: var(--text-dim) !important; }
@@ -1113,9 +1143,6 @@ a[href*="#last5gp_table"], .golden-popcorn-character { color: var(--gold-bright)
 a[href*="#last5gp_table"]:hover { color: var(--text-bright); }
 #wrapper .alert-bars a { color: var(--gold); }
 
-/* --------------------------------------------------------------------------
-   16. Functional colors — ratio / status / classes
-   -------------------------------------------------------------------------- */
 .r00 { color: #d1564e; }
 .r01 { color: #d4664f; }
 .r02 { color: #d77650; }
@@ -1150,7 +1177,6 @@ a.torrent-info-link--user-uploaded { color: #a184c9; }
 .tor_highlight_leech { color: var(--warn) !important; }
 .tor_highlight_snatch { color: #d15a6e !important; }
 
-/* user-class colors (kept from Genaviv, gently desaturated) */
 a.permission_2,  .permission_2  { color: #ffffff; }
 a.permission_3,  .permission_3  { color: #bec2cc; }
 a.permission_4,  .permission_4  { color: #4aac85; }
@@ -1185,7 +1211,6 @@ a.permission_22, .permission_22 { color: #f08c40; }
 a.permission_25, .permission_25 { color: #a05070; }
 a.permission_27, .permission_27 { color: #50e8c0; }
 
-/* release/source format colors */
 .TS { color: #be5a7d; }
 .MP4 { color: #f7995b; }
 .MKV { color: #d75067; }
@@ -1198,12 +1223,8 @@ a.permission_27, .permission_27 { color: #50e8c0; }
 .Scene { color: #4be0d5; }
 .User { color: #ffffff; }
 
-/* --------------------------------------------------------------------------
-   17. Accessibility & motion
-   -------------------------------------------------------------------------- */
 :focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; border-radius: 2px; }
 
-/* narrow viewports: un-fix the menu and stack columns instead of overlapping */
 @media (max-width: 960px) {
   #menu, .main-menu {
     position: static;
@@ -1234,9 +1255,6 @@ a.permission_27, .permission_27 { color: #50e8c0; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
-/* --------------------------------------------------------------------------
-   18. Stats graphs (SVG charts) — missing from the original theme
-   -------------------------------------------------------------------------- */
 .chart-text { fill: #e0e0e0; }
 .labels { fill: #999; }
 .label-title { fill: #bbb; }
